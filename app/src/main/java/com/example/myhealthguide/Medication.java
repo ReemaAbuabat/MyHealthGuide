@@ -2,7 +2,7 @@ package com.example.myhealthguide;
 
 public class Medication {
 
-    public long medId;
+
     String medName;
     String medInstruction;
     String medImg;
@@ -10,8 +10,8 @@ public class Medication {
     int[] hr,min;
 
 
-    public Medication(long medId, String medName, String medInstruction, String medImg, int dose, int[] hr, int[] min) {
-        this.medId = medId;
+    public Medication( String medName, String medInstruction, String medImg, int dose, int[] hr, int[] min) {
+
         this.medName = medName;
         this.medInstruction = medInstruction;
         this.medImg = medImg;

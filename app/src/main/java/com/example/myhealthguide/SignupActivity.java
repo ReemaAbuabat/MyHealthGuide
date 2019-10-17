@@ -92,7 +92,7 @@ public class SignupActivity extends AppCompatActivity {
 //                                            Toast.makeText(SignupActivity.this,"This email is already exist", Toast.LENGTH_SHORT).show();
                                             progressDialog.dismiss();
                                             wrongInfoDialog("This email is already exist");
-                                            // TODO: Take your action
+
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
