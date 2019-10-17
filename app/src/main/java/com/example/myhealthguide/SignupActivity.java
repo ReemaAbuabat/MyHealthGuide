@@ -67,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
                 if(validate()){
                     String userEmail = email.getText().toString().trim();
                     String userPass = password.getText().toString().trim();
-                    progressDialog.setMessage("Please wait....");
+                    progressDialog.setMessage("Please wait...");
                     progressDialog.show();
 
 
