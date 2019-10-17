@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/main_bggs"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".LoginSignup">
+
+
+    <LinearLayout
+        android:background="#A6FFFFFF"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="337dp"
+            android:layout_height="299dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/finallogotext" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="Welcome to your Health Guide App"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:textColor="#575757"-->
+        <!--android:textSize="20sp"-->
+        <!--/>-->
+
+    <Button
+        android:id="@+id/signup1btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="150dp"
+        android:text = "Sign Up"
+
+        android:textColor="#860017"
+        android:background="#fff"
+        />
+
+    <Button
+        android:id="@+id/login1btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text = "Login"
+        android:textColor="#fff"
+        android:background="#860017"
+        />
+
+    </LinearLayout>
+
+</LinearLayout>

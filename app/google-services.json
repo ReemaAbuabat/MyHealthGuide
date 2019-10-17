@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1050407883031",
+    "firebase_url": "https://my-health-guide-c6fbb.firebaseio.com",
+    "project_id": "my-health-guide-c6fbb",
+    "storage_bucket": "my-health-guide-c6fbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050407883031:android:73658b97da2b4e2de5e752",
+        "android_client_info": {
+          "package_name": "com.example.myhealthguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050407883031-n54psrbcpg7u98hid1so4elgql0j7rtl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myhealthguide",
+            "certificate_hash": "a278382b7b44a43dff1fec64b3dfa33f80af9288"
+          }
+        },
+        {
+          "client_id": "1050407883031-8u9sbagobclhi5hk8ov21q0bqs75ij0b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQF9gMk2TU40HNby09zkZs6bykPq-_Bps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050407883031-8u9sbagobclhi5hk8ov21q0bqs75ij0b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
