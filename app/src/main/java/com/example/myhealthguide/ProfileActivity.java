@@ -194,7 +194,7 @@ dialogInterface.dismiss();                    }
                                 wrongInfoDialog("something went wrong please try again");
                             }else {
                                 progressDialog.hide();
-                                goodDialog("Your password was changed successfully");
+                                goodDialog("Your password has been changed successfully");
 
                             }
                         }

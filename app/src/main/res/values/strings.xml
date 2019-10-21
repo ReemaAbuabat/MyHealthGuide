@@ -3,4 +3,9 @@
     <string name="OK">Ok</string>
     <string name="Wrong">Wrong</string>
     <string name="title_activity_add_medication">addMedication</string>
+    <string name="share">Share</string>
+    <string name="Add_favorite">Add To Favorite</string>
+    <string name="action_add_favourite">Add To Favourite List</string>
+    <string name="action_play_next">Share</string>
+    <string name="title_activity_inner_allowedance">InnerAllowedanceActivity</string>
 </resources>

@@ -84,37 +84,42 @@ public class LoginActivity extends AppCompatActivity {
     }//End init()
 
     private void validate(String userMail, String userPass){
+if( (!userMail.isEmpty()) && (!userPass.isEmpty())) {
+    progressDialog.setMessage("Please wait...");
+    progressDialog.show();
+    firebaseAuth.signInWithEmailAndPassword(userMail, userPass)
+            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
 
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
-       firebaseAuth.signInWithEmailAndPassword(userMail,userPass)
-               .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                   @Override
-                   public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        progressDialog.dismiss();
+                        checkEmailVerification();
+                    } else {
 
-                       if(task.isSuccessful()){
-                           progressDialog.dismiss();
-                          checkEmailVerification();
-                       } else {
+                        try {
+                            throw task.getException();
 
-                           try
-                           {
-                               throw task.getException();
+                        }   // if user enters wrong password.
+                        catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
+                            Log.d("LoginActivity", "onComplete: malformed_email");
+                            progressDialog.dismiss();
+                            wrongInfoDialog("Invalid email or password, please check and try again");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        // Toast.makeText(LoginActivity.this,"something went wrong", Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
+                        wrongInfoDialog("Invalid email or password, please check and try again");
+                    }
 
-                           }   // if user enters wrong password.
-                           catch (FirebaseAuthInvalidCredentialsException malformedEmail)                                        {
-                               Log.d("LoginActivity", "onComplete: malformed_email");
-                               progressDialog.dismiss();
-wrongInfoDialog("Invalid email or password, please check and try again");                              }
-                    catch (Exception e) {
-                               e.printStackTrace();
-                           }
-                          // Toast.makeText(LoginActivity.this,"something went wrong", Toast.LENGTH_LONG).show();
-                           progressDialog.dismiss();
-                       }
-
-                   }
-               });
+                }
+            });
+}
+else
+{
+    wrongInfoDialog("Missing fields");
+}
 
     }//end validate()
 

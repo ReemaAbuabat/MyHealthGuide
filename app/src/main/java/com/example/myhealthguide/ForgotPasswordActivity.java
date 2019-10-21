@@ -1,8 +1,10 @@
 package com.example.myhealthguide;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -40,18 +42,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             String usermail = forgetPassMailET.getText().toString().trim();
 
             if(usermail.equals("")){
-                Toast.makeText(ForgotPasswordActivity.this,"Please enter your registered email address",Toast.LENGTH_LONG).show();
+                wrongInfoDialog("Please enter your registered email address");
+
                  } else {
                 firebaseAuth.sendPasswordResetEmail(usermail)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(ForgotPasswordActivity.this,"Password reset email sent!",Toast.LENGTH_SHORT).show();
+                                    wrongInfoDialog("Rest password email has been sent!");
                                     finish();
                                     startActivity(new Intent(ForgotPasswordActivity.this,LoginActivity.class));
                                 }else {
-                                    Toast.makeText(ForgotPasswordActivity.this,"Error in sending password reset email!",Toast.LENGTH_SHORT).show();
+                                    wrongInfoDialog("Error in sending password reset email!");
+
                                 }
                             }
                         });
@@ -67,5 +71,28 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         backToLoginBtn = findViewById(R.id.backToLogin);
         firebaseAuth = FirebaseAuth.getInstance();
     }//End init()
+
+    private void wrongInfoDialog(String msg) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        // Setting Dialog Title
+        alertDialog.setTitle(R.string.Wrong);
+
+        // Setting Dialog Message
+        alertDialog.setMessage(msg);
+
+        // Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.ic_close_black_24dp);
+        //Setting Negative "ok" Button
+        alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+
+            }//end onClick
+        });//end setPositiveButton
+
+        alertDialog.show();
+
+    }//end wrongInfoDialog()
+
 
 }//End class

@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -27,11 +28,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import static java.lang.Integer.parseInt;
 
 public class addMedication extends AppCompatActivity {
 
@@ -44,7 +48,8 @@ public class addMedication extends AppCompatActivity {
     EditText nameText, specialText;
     TextView numOfMedText;
     String name, special,numOfMed, timeClock;
-    int counter = 0;
+    int counter = 1;
+    int[] hr,min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +98,7 @@ public class addMedication extends AppCompatActivity {
         subBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(counter !=0){
+                if(counter !=1){
                     counter--;
                     numOfMedText.setText(""+counter+"");
                 }
@@ -109,21 +114,52 @@ public class addMedication extends AppCompatActivity {
         numOfMed = numOfMedText.getText().toString();
         timeClock = chooseTime.getText().toString();
 
-        if(name.isEmpty() || timeClock.isEmpty() )
+        if(name.isEmpty() || timeClock.isEmpty()  )
         {
             wrongInfoDialog("Missing field");
         }else {
-            if (numOfMed.equals("0"))
-            {
-                wrongInfoDialog("You have to take your medication at least once");
-            }
-            else{
+                if(selectedImg.isEmpty()) {
+                    wrongInfoDialog("you have to choose a photo");
 
-            }
+                }
+                else{
+                    int numOfMedicatoin = parseInt(numOfMed);
+                    switchMed(timeClock, numOfMedicatoin);
+//                    Medication medication = new Medication(name, special, selectedImg,numOfMedicatoin,);
+                }
+
         }
 
 
 
+    }
+
+    private void switchMed(String timeClock, int numOfMedicatoin) {
+        switch (numOfMedicatoin)
+        {
+            case 1:
+            {
+                int index = timeClock.indexOf(':');
+                int hour = parseInt(timeClock.substring(0,index));
+                hr[0] = hour;
+                int minutes = parseInt(timeClock.substring(index));
+                min[0] = minutes;
+                break;
+
+            }
+            case 2:
+            {
+
+            }
+            case 3:
+            {
+
+            }
+            case 4:
+            {
+
+            }
+        }
     }
 
     public void init() {
@@ -217,6 +253,7 @@ public class addMedication extends AppCompatActivity {
                     }//End of else
 
                     personalImg.setImageBitmap(bitmap);
+                    selectedImg = BitMapToString(bitmap);
 //                    isSelectImage = true;
 
 
@@ -258,4 +295,12 @@ public class addMedication extends AppCompatActivity {
         alertDialog.show();
 
     }//end wrongInfoDialog()
+    public String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
+
 }
