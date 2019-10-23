@@ -20,35 +20,37 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/thumbnail"
+                android:id="@+id/image_med"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/album_cover_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:src="@drawable/medi"
                 android:scaleType="fitXY" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_above="@+id/name"
+                android:layout_above="@+id/med_name"
 
-                android:layout_alignTop="@+id/name"
+                android:layout_alignTop="@+id/med_name"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="-5dp"
                 android:background="@drawable/custom_layout" />
 
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/med_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/thumbnail"
+                android:layout_below="@id/image_med"
                 android:gravity="center"
                 android:paddingStart="@dimen/album_title_padding"
                 android:paddingTop="@dimen/album_title_padding"
                 android:paddingEnd="@dimen/album_title_padding"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
+
 
 
         </RelativeLayout>

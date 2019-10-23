@@ -168,7 +168,8 @@ public class ProfileActivity extends AppCompatActivity {
                 alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-dialogInterface.dismiss();                    }
+                    dialogInterface.dismiss();
+                    }
                 });
                 alertDialog.show();
 

@@ -25,6 +25,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class SignupActivity extends AppCompatActivity {
 
     private EditText userName, email, password, confirmPassword;
@@ -34,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
     private String name, pass, cpass, mail;
     private String TAG = SignupActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
+    private ArrayList<Medication> medications = new ArrayList<>();
 
 
     @Override
@@ -81,6 +88,7 @@ public class SignupActivity extends AppCompatActivity {
                                     if(task.isSuccessful()){
 
                                         sendEmailVerificationAction();
+
                                     } else {
                                         try
                                         {
@@ -88,15 +96,14 @@ public class SignupActivity extends AppCompatActivity {
                                         }
                                         catch (FirebaseAuthUserCollisionException existEmail)
                                         {
-//                                            Log.d(TAG, "onComplete: exist_email");
-//                                            Toast.makeText(SignupActivity.this,"This email is already exist", Toast.LENGTH_SHORT).show();
+
                                             progressDialog.dismiss();
                                             wrongInfoDialog("This email is already exist");
 
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
-//                                        Toast.makeText(SignupActivity.this,"Registration Failed", Toast.LENGTH_SHORT).show();
+
                                     }//end else block
                                 }//End onComplete()
                             });
@@ -189,9 +196,22 @@ wrongInfoDialog("Verification email has'nt been sent!");                    }
     private void sendUserData() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
+         ArrayList<Integer> hr = new ArrayList<>();
+         ArrayList<Integer> min = new ArrayList<>();
+         hr.add(0);
+         min.add(0);
+         ArrayList<Day> days = new ArrayList<>();
+         days.add(new Day("",true));
 
-        User user = new User(mail,name);
+        Medication medication = new Medication("0","firstEmptyOne","","",0,hr,min,days);
+        medications.add(medication);
+
+        User user = new User(mail,name,medications);
+
         databaseReference.setValue(user);
+//        databaseReference.setValue(medication);
+//        String id = databaseItem.p
+
 
     }//End sendUserData()
 

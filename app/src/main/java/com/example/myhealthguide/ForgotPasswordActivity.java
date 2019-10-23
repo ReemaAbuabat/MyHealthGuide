@@ -42,7 +42,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             String usermail = forgetPassMailET.getText().toString().trim();
 
             if(usermail.equals("")){
-                wrongInfoDialog("Please enter your registered email address");
+                wrongInfoDialog("Please enter your registered email address!");
 
                  } else {
                 firebaseAuth.sendPasswordResetEmail(usermail)

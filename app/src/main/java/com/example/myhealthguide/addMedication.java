@@ -2,6 +2,7 @@ package com.example.myhealthguide;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +14,15 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -23,6 +32,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,12 +44,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.invoke.WrongMethodTypeException;
+import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
 public class addMedication extends AppCompatActivity {
 
-    EditText chooseTime;
+    TextView chooseTime;
     ImageView camera;
     ImageView time;
     ImageView personalImg, plusBtn, subBtn;
@@ -49,19 +61,27 @@ public class addMedication extends AppCompatActivity {
     TextView numOfMedText;
     String name, special,numOfMed, timeClock;
     int counter = 1;
-    int[] hr,min;
+    Integer[] hr,min ;
+    public ArrayList<Integer> hrMed = new ArrayList<>();
+    public ArrayList<Integer> minMed= new ArrayList<>();
+    public ArrayList<Day> days = new ArrayList<>();
+    private FirebaseUser user;
+    Medication medication;
+    CheckBox sun,mon,tue,wed,thu,fri,sat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medication);
+
         initToolBar();
         init();
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(addMedication.this, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(addMedication.this, R.style.TimePickerTheme,new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         chooseTime.setText(hourOfDay + ":" + minutes);
@@ -83,6 +103,7 @@ public class addMedication extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 validateAdd();
+
             }
         });
         plusBtn.setOnClickListener(new View.OnClickListener() {
@@ -108,33 +129,113 @@ public class addMedication extends AppCompatActivity {
 
     }
 
-    private void validateAdd() {
-        name = nameText.getText().toString();
-        special = specialText.getText().toString();
-        numOfMed = numOfMedText.getText().toString();
-        timeClock = chooseTime.getText().toString();
+        private void validateAdd() {
+            name = nameText.getText().toString();
+            special = specialText.getText().toString();
+            numOfMed = numOfMedText.getText().toString();
+            timeClock = chooseTime.getText().toString();
 
-        if(name.isEmpty() || timeClock.isEmpty()  )
-        {
-            wrongInfoDialog("Missing field");
-        }else {
-                if(selectedImg.isEmpty()) {
-                    wrongInfoDialog("you have to choose a photo");
 
-                }
-                else{
-                    int numOfMedicatoin = parseInt(numOfMed);
-                    switchMed(timeClock, numOfMedicatoin);
-//                    Medication medication = new Medication(name, special, selectedImg,numOfMedicatoin,);
-                }
+            if(name.isEmpty() || timeClock.isEmpty()  )
+            {
+                wrongInfoDialog("Missing field");
+            }else {
+                    if(selectedImg==null) {
+                        wrongInfoDialog("you have to choose a photo");
+
+                    }
+                    else{
+                        if(sun.isChecked() || mon.isChecked() || tue.isChecked() || wed.isChecked() || thu.isChecked() || fri.isChecked() || sat.isChecked()) {
+                            int numOfMedicatoin = parseInt(numOfMed);
+                            switchMed(timeClock, numOfMedicatoin);
+                            for (int i = 0; i < hr.length; i++) {
+                                hrMed.add(hr[i]);
+                                minMed.add(min[i]);
+                            }
+                            checkDays();
+                            user = FirebaseAuth.getInstance().getCurrentUser();
+                            String userId = user.getUid();
+
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            DatabaseReference myUser = reference.child(userId);
+                            DatabaseReference medicationReference = myUser.child("medicationList");
+
+                            String id = medicationReference.push().getKey();
+                            medication = new Medication(id, name, special, selectedImg, numOfMedicatoin, hrMed, minMed, days);
+                            medicationReference.child(id).setValue(medication);
+                            Dialog("added Successfully !");
+
+
+                        }
+                        else{
+                            wrongInfoDialog("you have to choose at least one day!");
+                        }
+
+                    }
+
+            }
+
+
 
         }
 
-
+    private void checkDays() {
+        if(sun.isChecked())
+        {   Day day = new Day("sun",true);
+            days.add(day);
+        }else{
+            Day day = new Day("sun",false);
+            days.add(day);
+        }
+        if(mon.isChecked())
+        {   Day day = new Day("mon",true);
+            days.add(day);
+        }else{
+            Day day = new Day("mon",false);
+            days.add(day);
+        }
+        if(tue.isChecked())
+        {   Day day = new Day("tue",true);
+            days.add(day);
+        }else{
+            Day day = new Day("tue",false);
+            days.add(day);
+        }
+        if(wed.isChecked())
+        {   Day day = new Day("wed",true);
+            days.add(day);
+        }else{
+            Day day = new Day("wed",false);
+            days.add(day);
+        }
+        if(thu.isChecked())
+        {   Day day = new Day("thu",true);
+            days.add(day);
+        }else{
+            Day day = new Day("thu",false);
+            days.add(day);
+        }
+        if(fri.isChecked())
+        {   Day day = new Day("fri",true);
+            days.add(day);
+        }else{
+            Day day = new Day("fri",false);
+            days.add(day);
+        }if(sat.isChecked())
+        {   Day day = new Day("sat",true);
+            days.add(day);
+        }else{
+            Day day = new Day("sat",false);
+            days.add(day);
+        }
 
     }
 
     private void switchMed(String timeClock, int numOfMedicatoin) {
+
+        hr = new Integer[numOfMedicatoin];
+        min = new Integer[numOfMedicatoin];
         switch (numOfMedicatoin)
         {
             case 1:
@@ -142,21 +243,91 @@ public class addMedication extends AppCompatActivity {
                 int index = timeClock.indexOf(':');
                 int hour = parseInt(timeClock.substring(0,index));
                 hr[0] = hour;
-                int minutes = parseInt(timeClock.substring(index));
+                int minutes = parseInt(timeClock.substring(index+1));
                 min[0] = minutes;
                 break;
 
             }
             case 2:
             {
+                int index = timeClock.indexOf(':');
+                int hour = parseInt(timeClock.substring(0,index));
+                hr[0] = hour;
+                int minutes = parseInt(timeClock.substring(index+1));
+                min[0] = minutes;
+
+                if(hour < 12)
+                {
+                    hr[1]= hour+12;
+                    min[1]=minutes;
+                }
+                else{
+                    hr[1]= hour-12;
+                    min[1]=minutes;
+                }
+                break;
 
             }
             case 3:
             {
+                int index = timeClock.indexOf(':');
+                int hour = parseInt(timeClock.substring(0,index));
+                hr[0] = hour;
+                int minutes = parseInt(timeClock.substring(index+1));
+                min[0] = minutes;
+
+                if(hour < 8)
+                {
+                    hr[1]= hour+8;
+                    min[1]=minutes;
+
+                    hr[2] = hr[1]+8;
+                    min[2]=minutes;
+
+
+                }
+                else{
+                    hr[1]= hour-8;
+                    min[1]=minutes;
+
+                    hr[2] = hr[1]-8;
+                    min[2]=minutes;
+                }
+                break;
 
             }
             case 4:
             {
+                int index = timeClock.indexOf(':');
+                int hour = parseInt(timeClock.substring(0,index));
+                hr[0] = hour;
+                int minutes = parseInt(timeClock.substring(index+1));
+                min[0] = minutes;
+
+                if(hour < 6)
+                {
+                    hr[1]= hour+6;
+                    min[1]=minutes;
+
+                    hr[2] = hr[1]+6;
+                    min[2]=minutes;
+
+                    hr[3] = hr[2]+6;
+                    min[3]=minutes;
+
+
+                }
+                else{
+                    hr[1]= hour-6;
+                    min[1]=minutes;
+
+                    hr[2] = hr[1]-6;
+                    min[2]=minutes;
+
+                    hr[3] = hr[2]-6;
+                    min[3]=minutes;
+                }
+                break;
 
             }
         }
@@ -173,6 +344,16 @@ public class addMedication extends AppCompatActivity {
         numOfMedText = findViewById(R.id.numOfT);
         plusBtn = findViewById(R.id.plus);
         subBtn = findViewById(R.id.sub);
+        sun = findViewById(R.id.sun);
+        mon = findViewById(R.id.mon);
+        tue = findViewById(R.id.tue);
+        wed = findViewById(R.id.wed);
+        thu = findViewById(R.id.thu);
+        fri = findViewById(R.id.fri);
+        sat = findViewById(R.id.sat);
+
+
+
     }
 
     private void initToolBar() {
@@ -252,9 +433,11 @@ public class addMedication extends AppCompatActivity {
                         bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
                     }//End of else
 
-                    personalImg.setImageBitmap(bitmap);
+
                     selectedImg = BitMapToString(bitmap);
-//                    isSelectImage = true;
+                    personalImg.setImageBitmap(bitmap);
+
+
 
 
                 } catch (FileNotFoundException e) {
@@ -295,12 +478,36 @@ public class addMedication extends AppCompatActivity {
         alertDialog.show();
 
     }//end wrongInfoDialog()
-    public String BitMapToString(Bitmap bitmap){
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-        byte [] b=baos.toByteArray();
-        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+    public String BitMapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
     }
+    private void Dialog(String msg) {
+        androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(this);
+        // Setting Dialog Title
+
+
+        // Setting Dialog Message
+        alertDialog.setMessage(msg);
+
+        // Setting Icon to Dialog
+
+        //Setting Negative "ok" Button
+        alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                finish();
+
+
+            }//end onClick
+        });//end setPositiveButton
+
+        alertDialog.show();
+
+    }//end wrongInfoDialog()
+
 
 }

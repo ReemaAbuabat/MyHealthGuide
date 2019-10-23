@@ -5,15 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/main_bggs"
     tools:context=".addMedication">
 
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_addMed"
         android:layout_width="match_parent"
+        app:titleTextColor="#FFF"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+  />
+    <LinearLayout
+        android:background="#A6FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -25,41 +33,52 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="199dp"
-                android:layout_height="177dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:orientation="vertical">
+                >
 
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profile_pic"
-                    android:layout_width="163dp"
-                    android:layout_height="129dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:layout_gravity="center"
-                    android:src="@drawable/medi" />
-
+                    android:elevation="5dp"
+                    android:padding="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/medi"
+                    app:civ_border_color="#FFFFFFFF"
+                    app:civ_border_width="3dp" />
                 <ImageView
+
                     android:id="@+id/camera_btn"
                     android:layout_width="42dp"
                     android:layout_height="41dp"
-
-                    android:layout_gravity="end"
+android:layout_marginTop="170dp"
+                    android:layout_marginStart="150dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_camera" />
 
-            </LinearLayout>
+
+            </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="336dp"
                 android:layout_height="67dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="30dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name_med"
-                    android:layout_width="370dp"
-                    android:layout_height="39dp"
+                    android:layout_width="336dp"
+                    android:layout_height="49dp"
                     android:layout_gravity="center"
+
                     android:layout_marginTop="40dp"
                     android:ems="10"
                     android:hint="Name"
@@ -68,19 +87,20 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="336dp"
+                android:layout_gravity="center"
                 android:layout_height="141dp"
                 android:layout_marginTop="40dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/special"
-                    android:layout_width="370dp"
+                    android:layout_width="match_parent"
                     android:layout_height="111dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="40dp"
                     android:ems="10"
                     android:gravity="top"
-                    android:hint="Special Instruction...(optional)"
+                    android:hint="Special Instruction(optional)"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -93,9 +113,10 @@
 
                 <ImageView
                     android:id="@+id/sub"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_width="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="40dp"
+
                     android:src="@drawable/ic_do_not_disturb_on_black" />
 
                 <TextView
@@ -110,26 +131,27 @@
 
                 <ImageView
                     android:id="@+id/plus"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_add_circle_black" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="269dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
-                <EditText
+                <TextView
                     android:id="@+id/etChooseTime"
-                    android:layout_width="285dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="185dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-
+                    android:gravity="center"
+                    android:textSize="20sp"
                     android:hint="Choose the time" />
 
                 <ImageView
@@ -140,10 +162,85 @@
                     android:src="@drawable/ic_access_time_black_24dp" />
 
             </LinearLayout>
+            <LinearLayout
+
+                android:layout_width="336dp"
+                android:layout_height="wrap_content"
+                android:background="#4D909EAC"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/sun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobtn_bck"
+                    android:button="@null"
+
+                    android:gravity="center"
+                    android:text="SUN" />
+
+                <CheckBox
+                    android:id="@+id/mon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/radiobtn_bck"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="MON" />
+
+                <CheckBox android:id="@+id/tue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/radiobtn_bck"
+                android:gravity="center"
+                android:button="@null"
+                android:text="TUE" />
+                <CheckBox
+                    android:id="@+id/wed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/radiobtn_bck"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:text="WED" />
+                <CheckBox
+                    android:id="@+id/thu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/radiobtn_bck"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:text="THU" />
+                <CheckBox
+                    android:id="@+id/fri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/radiobtn_bck"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:text="FRI" />
+                <CheckBox
+                    android:id="@+id/sat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/radiobtn_bck"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:text="SAT" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/addMed"
-                android:layout_width="370dp"
+                android:layout_width="200dp"
                 android:layout_height="54dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"
@@ -157,6 +254,6 @@
 
         </LinearLayout>
     </ScrollView>
-
+    </LinearLayout>
 
 </LinearLayout>
