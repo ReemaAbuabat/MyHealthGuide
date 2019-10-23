@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">1050407883031-8u9sbagobclhi5hk8ov21q0bqs75ij0b.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://my-health-guide-c6fbb.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">1050407883031</string>
+    <string name="google_api_key" translatable="false">AIzaSyCQF9gMk2TU40HNby09zkZs6bykPq-_Bps</string>
+    <string name="google_app_id" translatable="false">1:1050407883031:android:73658b97da2b4e2de5e752</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCQF9gMk2TU40HNby09zkZs6bykPq-_Bps</string>
+    <string name="google_storage_bucket" translatable="false">my-health-guide-c6fbb.appspot.com</string>
+    <string name="project_id" translatable="false">my-health-guide-c6fbb</string>
+</resources>
