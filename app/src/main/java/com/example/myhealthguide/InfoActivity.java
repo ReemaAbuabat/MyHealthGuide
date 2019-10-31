@@ -17,6 +17,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class InfoActivity extends AppCompatActivity {
     private List<Row> albumList;
     String name, allowedFood,notAllowedFood;
     Button healthBtn;
+    ImageView healthMin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class InfoActivity extends AppCompatActivity {
         initToolBar();
         initCollapsingToolbar();
 
+        healthMin = findViewById(R.id.healthMinstry);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         healthBtn=(Button) findViewById(R.id.healthBtn);
         albumList = new ArrayList<>();
@@ -57,6 +60,14 @@ public class InfoActivity extends AppCompatActivity {
         prepareAlbums();
 
         healthBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://www.moh.gov.sa/en/HealthAwareness/MedicalTools/Pages/default.aspx"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        healthMin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Uri uri = Uri.parse("https://www.moh.gov.sa/en/HealthAwareness/MedicalTools/Pages/default.aspx"); // missing 'http://' will cause crashed
@@ -135,10 +146,10 @@ public class InfoActivity extends AppCompatActivity {
                 R.drawable.not_allowed_food,
         };
 
-        Row a = new Row("Allowed Food", "read more..", covers[0],allowedFood);
+        Row a = new Row("Allowed Food", "", covers[0],allowedFood);
         albumList.add(a);
 
-        a = new Row("Forbidden Food", "read more..", covers[1],notAllowedFood);
+        a = new Row("Forbidden Food", "", covers[1],notAllowedFood);
         albumList.add(a);
 
 

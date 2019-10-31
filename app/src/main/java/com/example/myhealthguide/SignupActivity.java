@@ -224,7 +224,7 @@ wrongInfoDialog("Verification email has'nt been sent!");                    }
         alertDialog.setMessage(msg);
 
         // Setting Icon to Dialog
-        alertDialog.setIcon(R.drawable.ic_close_black_24dp);
+        alertDialog.setIcon(R.drawable.exclamation);
         //Setting Negative "ok" Button
         alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {

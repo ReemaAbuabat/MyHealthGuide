@@ -61,7 +61,6 @@ public class addMedication extends AppCompatActivity {
     TextView numOfMedText;
     String name, special,numOfMed, timeClock;
     int counter = 1;
-    Integer[] hr,min ;
     public ArrayList<Integer> hrMed = new ArrayList<>();
     public ArrayList<Integer> minMed= new ArrayList<>();
     public ArrayList<Day> days = new ArrayList<>();
@@ -147,11 +146,17 @@ public class addMedication extends AppCompatActivity {
                     else{
                         if(sun.isChecked() || mon.isChecked() || tue.isChecked() || wed.isChecked() || thu.isChecked() || fri.isChecked() || sat.isChecked()) {
                             int numOfMedicatoin = parseInt(numOfMed);
-                            switchMed(timeClock, numOfMedicatoin);
-                            for (int i = 0; i < hr.length; i++) {
-                                hrMed.add(hr[i]);
-                                minMed.add(min[i]);
-                            }
+//                            switchMed(timeClock, numOfMedicatoin);
+//                            for (int i = 0; i < hr.length; i++) {
+//                                hrMed.add(hr[i]);
+//                                minMed.add(min[i]);
+//                            }
+                            int index = timeClock.indexOf(':');
+                            int hour = parseInt(timeClock.substring(0,index));
+                            hrMed.add(hour);
+                            int minutes = parseInt(timeClock.substring(index+1));
+                            minMed.add(minutes);
+
                             checkDays();
                             user = FirebaseAuth.getInstance().getCurrentUser();
                             String userId = user.getUid();
@@ -232,106 +237,106 @@ public class addMedication extends AppCompatActivity {
 
     }
 
-    private void switchMed(String timeClock, int numOfMedicatoin) {
-
-        hr = new Integer[numOfMedicatoin];
-        min = new Integer[numOfMedicatoin];
-        switch (numOfMedicatoin)
-        {
-            case 1:
-            {
-                int index = timeClock.indexOf(':');
-                int hour = parseInt(timeClock.substring(0,index));
-                hr[0] = hour;
-                int minutes = parseInt(timeClock.substring(index+1));
-                min[0] = minutes;
-                break;
-
-            }
-            case 2:
-            {
-                int index = timeClock.indexOf(':');
-                int hour = parseInt(timeClock.substring(0,index));
-                hr[0] = hour;
-                int minutes = parseInt(timeClock.substring(index+1));
-                min[0] = minutes;
-
-                if(hour < 12)
-                {
-                    hr[1]= hour+12;
-                    min[1]=minutes;
-                }
-                else{
-                    hr[1]= hour-12;
-                    min[1]=minutes;
-                }
-                break;
-
-            }
-            case 3:
-            {
-                int index = timeClock.indexOf(':');
-                int hour = parseInt(timeClock.substring(0,index));
-                hr[0] = hour;
-                int minutes = parseInt(timeClock.substring(index+1));
-                min[0] = minutes;
-
-                if(hour < 8)
-                {
-                    hr[1]= hour+8;
-                    min[1]=minutes;
-
-                    hr[2] = hr[1]+8;
-                    min[2]=minutes;
-
-
-                }
-                else{
-                    hr[1]= hour-8;
-                    min[1]=minutes;
-
-                    hr[2] = hr[1]-8;
-                    min[2]=minutes;
-                }
-                break;
-
-            }
-            case 4:
-            {
-                int index = timeClock.indexOf(':');
-                int hour = parseInt(timeClock.substring(0,index));
-                hr[0] = hour;
-                int minutes = parseInt(timeClock.substring(index+1));
-                min[0] = minutes;
-
-                if(hour < 6)
-                {
-                    hr[1]= hour+6;
-                    min[1]=minutes;
-
-                    hr[2] = hr[1]+6;
-                    min[2]=minutes;
-
-                    hr[3] = hr[2]+6;
-                    min[3]=minutes;
-
-
-                }
-                else{
-                    hr[1]= hour-6;
-                    min[1]=minutes;
-
-                    hr[2] = hr[1]-6;
-                    min[2]=minutes;
-
-                    hr[3] = hr[2]-6;
-                    min[3]=minutes;
-                }
-                break;
-
-            }
-        }
-    }
+//    private void switchMed(String timeClock, int numOfMedicatoin) {
+//
+//        hr = new Integer[numOfMedicatoin];
+//        min = new Integer[numOfMedicatoin];
+//        switch (numOfMedicatoin)
+//        {
+//            case 1:
+//            {
+//                int index = timeClock.indexOf(':');
+//                int hour = parseInt(timeClock.substring(0,index));
+//                hr[0] = hour;
+//                int minutes = parseInt(timeClock.substring(index+1));
+//                min[0] = minutes;
+//                break;
+//
+//            }
+//            case 2:
+//            {
+//                int index = timeClock.indexOf(':');
+//                int hour = parseInt(timeClock.substring(0,index));
+//                hr[0] = hour;
+//                int minutes = parseInt(timeClock.substring(index+1));
+//                min[0] = minutes;
+//
+//                if(hour < 12)
+//                {
+//                    hr[1]= hour+12;
+//                    min[1]=minutes;
+//                }
+//                else{
+//                    hr[1]= hour-12;
+//                    min[1]=minutes;
+//                }
+//                break;
+//
+//            }
+//            case 3:
+//            {
+//                int index = timeClock.indexOf(':');
+//                int hour = parseInt(timeClock.substring(0,index));
+//                hr[0] = hour;
+//                int minutes = parseInt(timeClock.substring(index+1));
+//                min[0] = minutes;
+//
+//                if(hour < 8)
+//                {
+//                    hr[1]= hour+8;
+//                    min[1]=minutes;
+//
+//                    hr[2] = hr[1]+8;
+//                    min[2]=minutes;
+//
+//
+//                }
+//                else{
+//                    hr[1]= hour-8;
+//                    min[1]=minutes;
+//
+//                    hr[2] = hr[1]-8;
+//                    min[2]=minutes;
+//                }
+//                break;
+//
+//            }
+//            case 4:
+//            {
+//                int index = timeClock.indexOf(':');
+//                int hour = parseInt(timeClock.substring(0,index));
+//                hr[0] = hour;
+//                int minutes = parseInt(timeClock.substring(index+1));
+//                min[0] = minutes;
+//
+//                if(hour < 6)
+//                {
+//                    hr[1]= hour+6;
+//                    min[1]=minutes;
+//
+//                    hr[2] = hr[1]+6;
+//                    min[2]=minutes;
+//
+//                    hr[3] = hr[2]+6;
+//                    min[3]=minutes;
+//
+//
+//                }
+//                else{
+//                    hr[1]= hour-6;
+//                    min[1]=minutes;
+//
+//                    hr[2] = hr[1]-6;
+//                    min[2]=minutes;
+//
+//                    hr[3] = hr[2]-6;
+//                    min[3]=minutes;
+//                }
+//                break;
+//
+//            }
+//        }
+//    }
 
     public void init() {
         chooseTime = findViewById(R.id.etChooseTime);
@@ -467,7 +472,7 @@ public class addMedication extends AppCompatActivity {
         alertDialog.setMessage(msg);
 
         // Setting Icon to Dialog
-        alertDialog.setIcon(R.drawable.ic_close_black_24dp);
+        alertDialog.setIcon(R.drawable.exclamation);
         //Setting Negative "ok" Button
         alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {

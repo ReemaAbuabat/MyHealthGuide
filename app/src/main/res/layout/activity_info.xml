@@ -55,33 +55,37 @@
 
     <include layout="@layout/content_main" />
     <LinearLayout
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="500dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="550dp"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp">
 
 
         <ImageView
+            android:id="@+id/healthMinstry"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="2"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
-            android:src="@drawable/logo_health"
             android:clickable="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"/>
+            android:src="@drawable/logo_health"
+
+            />
+
         <Button
             android:id="@+id/healthBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
             android:clickable="true"
+
             android:text="Click to Browse Useful Tools"
-            android:textSize="15dp"
             android:textColor="@color/colorPrimary"
-            android:textStyle="italic"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"/>
+            android:textSize="15dp"
+            android:textStyle="italic" />
 
 
     </LinearLayout>
