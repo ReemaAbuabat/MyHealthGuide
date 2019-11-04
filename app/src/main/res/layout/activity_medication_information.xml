@@ -279,16 +279,16 @@
 
                             <Button
                                 android:id="@+id/update_med"
-                                android:layout_width="150dp"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:background="@color/colorPrimary"
+                                android:background="#FFFF"
                                 android:text="Update"
-                                android:textColor="#FFF" />
+                                android:textColor="#860017" />
 
                             <Button
                                 android:id="@+id/delete_med"
-                                android:layout_width="150dp"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:background="@color/colorPrimary"

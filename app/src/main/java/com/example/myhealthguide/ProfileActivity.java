@@ -121,13 +121,14 @@ public class ProfileActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference userRef = reference.child(userId);
 
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.child(userId).child("name").getValue().toString();
-                email = dataSnapshot.child(userId).child("userEmail").getValue().toString();
+                String name = dataSnapshot.child("name").getValue().toString();
+                email = dataSnapshot.child("userEmail").getValue().toString();
                 profileEmail.setText(name);
                 profileName.setText(email);
                 setPass();

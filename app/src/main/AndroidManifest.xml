@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MedicationInformation"></activity>
+        <activity android:name=".FavouriteListActivity"></activity>
+        <activity android:name=".MedicationInformation" />
         <activity
             android:name=".addMedication"
             android:label="@string/title_activity_add_medication"

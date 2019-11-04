@@ -4,16 +4,25 @@ package com.example.myhealthguide;
 public class Row {
 
     String name;
+    String dName;
     int thumbnail;
     String numOfallowdance,details;
 
-    public Row(String name, String numOfallowdance,int thumbnail,String details) {
+    public Row(String name, String numOfallowdance,int thumbnail,String details,String dName) {
         this.name = name;
         this.thumbnail = thumbnail;
         this.numOfallowdance = numOfallowdance;
         this.details=details;
+        this.dName = dName;
     }
 
+    public String getdName() {
+        return dName;
+    }
+
+    public void setdName(String dName) {
+        this.dName = dName;
+    }
 
     public String getName() {
         return name;

@@ -205,8 +205,10 @@ wrongInfoDialog("Verification email has'nt been sent!");                    }
 
         Medication medication = new Medication("0","firstEmptyOne","","",0,hr,min,days);
         medications.add(medication);
+        ArrayList<Favourite> favourites = new ArrayList<>();
+        favourites.add(new Favourite("0", "firstEmptyOne"));
 
-        User user = new User(mail,name,medications);
+        User user = new User(mail,name,medications,favourites);
 
         databaseReference.setValue(user);
 //        databaseReference.setValue(medication);

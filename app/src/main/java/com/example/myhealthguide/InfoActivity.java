@@ -146,10 +146,10 @@ public class InfoActivity extends AppCompatActivity {
                 R.drawable.not_allowed_food,
         };
 
-        Row a = new Row("Allowed Food", "", covers[0],allowedFood);
+        Row a = new Row("Allowed Food", "", covers[0],allowedFood,name);
         albumList.add(a);
 
-        a = new Row("Forbidden Food", "", covers[1],notAllowedFood);
+        a = new Row("Forbidden Food", "", covers[1],notAllowedFood,name);
         albumList.add(a);
 
 

@@ -79,8 +79,17 @@ public class DiseasesAdapter extends RecyclerView.Adapter<DiseasesAdapter.MyView
         return diseaseList.size();
     }
 
-    public void filterList(ArrayList<Disease> filteredList){
-        diseaseList = filteredList;
-        notifyDataSetChanged();
+    public void removeDisease(int position) {
+        diseaseList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreDisease(Disease disease, int position) {
+        diseaseList.add(position, disease);
+        notifyItemInserted(position);
+    }
+
+    public List<Disease> getDiseaseList() {
+        return diseaseList;
     }
 }

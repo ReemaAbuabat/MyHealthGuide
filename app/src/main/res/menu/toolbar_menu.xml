@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".BankActivity">
-
+    <item
+        android:id="@+id/action_add_favourite"
+        android:icon="@drawable/favorite"
+        android:orderInCategory="300"
+        android:title="User"
+        app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/action_ca"
         android:icon="@drawable/ic_person"
         android:orderInCategory="300"
         android:title="User"
         app:showAsAction="ifRoom"></item>
+
 
 </menu>

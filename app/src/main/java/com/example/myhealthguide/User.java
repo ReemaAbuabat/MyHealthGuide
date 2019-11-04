@@ -8,12 +8,13 @@ public class User {
     public String userEmail;
     public String name;
     public ArrayList<Medication> medicationList = new ArrayList<>();
+    public ArrayList<Favourite> favouriteArrayList = new ArrayList<>();
 
-
-    public User(String userEmail, String name, ArrayList<Medication> medicationList) {
+    public User(String userEmail, String name, ArrayList<Medication> medicationList, ArrayList<Favourite> favouriteArrayList) {
         this.userEmail = userEmail;
         this.name = name;
         this.medicationList = medicationList;
+        this.favouriteArrayList = favouriteArrayList;
     }
 
     //    public User(String userEmail, String name, ArrayList) {
