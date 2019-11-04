@@ -11,12 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class DiseasesAdapter extends RecyclerView.Adapter<DiseasesAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Disease> diseaseList;
+    /**
+     * NEW, NOV 3
+     */
+    private List<Disease> diseaseList = null;
+    private ArrayList<Disease> arraylist;
     private OnItemClickListener mListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -54,6 +59,15 @@ public class DiseasesAdapter extends RecyclerView.Adapter<DiseasesAdapter.MyView
 
 
     public DiseasesAdapter(List<Disease> diseaseList) {
+//        this.diseaseList = diseaseList;
+
+        /**
+         * NEW, NOV 3  - HIND UPDATE -> CONSTRUCTOR CHANGED!
+         */
+        this.diseaseList = diseaseList;
+//        inflater = LayoutInflater.from(mContext);
+        this.arraylist = new ArrayList<Disease>();
+        this.arraylist.addAll(diseaseList);
         this.diseaseList = diseaseList;
     }
 
@@ -92,4 +106,27 @@ public class DiseasesAdapter extends RecyclerView.Adapter<DiseasesAdapter.MyView
     public List<Disease> getDiseaseList() {
         return diseaseList;
     }
+
+    /**
+     *
+     * NEW, NOV 3
+     * @param charText
+     */
+
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        diseaseList.clear();
+        if (charText.length() == 0) {
+            diseaseList.addAll(arraylist);
+        } else {
+            for (Disease wp : arraylist) {
+                if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    diseaseList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 }

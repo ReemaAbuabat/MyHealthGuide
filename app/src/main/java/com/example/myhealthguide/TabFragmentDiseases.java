@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ public class TabFragmentDiseases  extends Fragment {
     private DiseasesAdapter mAdapter;
     private List<Disease> diseasesList = new ArrayList<>();
     private View view;
+    private SearchView searchView;
 
 //    private EditText search ;
 
@@ -51,6 +53,29 @@ public class TabFragmentDiseases  extends Fragment {
 //
 //            }
 //        });
+
+        /**
+         * CREATED ON NOV 3, 2019. HIND SEARCH TEST
+         */
+
+        searchView = view.findViewById(R.id.searchViewId);
+        searchView.setQueryHint("Search...");
+
+        // CharSequence query = searchView.getQuery(); // get the query string currently in the text field
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String text = newText;
+                mAdapter.filter(text);
+                return false;
+
+            }
+        });
 
 
         init();
