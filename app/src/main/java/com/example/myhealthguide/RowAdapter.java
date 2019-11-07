@@ -102,7 +102,6 @@ private boolean check ;
      * Showing popup menu when tapping on 3 dots
      */
     private void showPopupMenu(View view) {
-        getList();
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
@@ -160,16 +159,19 @@ private boolean check ;
     }
 
     private boolean vlidate() {
+try{
+    getList();
 
+}catch (Exception e) {
 
-
+}
         Log.d("validate value", String.valueOf(check));
 
        if(check == true){
            return true;
-       }else {
-           return false;
        }
+       return false;
+
     }
 
     @Override
