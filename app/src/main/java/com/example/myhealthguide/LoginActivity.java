@@ -131,7 +131,10 @@ else
         if(isVerified){
             finish();
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
+
             MySharedPrefrance.putString(this, "password", password.getText().toString());
+
+
             startActivity(i);
         }else{
             //todo: make dialog!
