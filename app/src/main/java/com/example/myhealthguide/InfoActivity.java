@@ -34,7 +34,9 @@ public class InfoActivity extends AppCompatActivity {
     private List<Row> albumList;
     String name, allowedFood,notAllowedFood;
     Button healthBtn;
-    ImageView healthMin;
+    ImageView healthMin, share;
+    String x;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class InfoActivity extends AppCompatActivity {
         initToolBar();
         initCollapsingToolbar();
 
+        share=findViewById(R.id.shareBTN);
         healthMin = findViewById(R.id.healthMinstry);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         healthBtn=(Button) findViewById(R.id.healthBtn);
@@ -73,6 +76,20 @@ public class InfoActivity extends AppCompatActivity {
                 Uri uri = Uri.parse("https://www.moh.gov.sa/en/HealthAwareness/MedicalTools/Pages/default.aspx"); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
+            }
+        });
+
+
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                String shareBody = "/n allowed food:"+allowedFood+"/n Not allowed food: "+notAllowedFood;
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, name);
+                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(myIntent, "Share using"));
             }
         });
 
