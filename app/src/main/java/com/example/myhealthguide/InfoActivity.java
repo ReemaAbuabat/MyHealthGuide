@@ -34,7 +34,7 @@ public class InfoActivity extends AppCompatActivity {
     private List<Row> albumList;
     String name, allowedFood,notAllowedFood;
     Button healthBtn;
-    ImageView healthMin;
+    ImageView healthMin, share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class InfoActivity extends AppCompatActivity {
         initCollapsingToolbar();
 
         healthMin = findViewById(R.id.healthMinstry);
-
+        share=findViewById(R.id.shareBTN);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         healthBtn=(Button) findViewById(R.id.healthBtn);
         albumList = new ArrayList<>();
@@ -57,6 +57,17 @@ public class InfoActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                String shareBody = "/n allowed food:"+allowedFood+"/n Not allowed food: "+notAllowedFood;
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, name);
+                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(myIntent, "Share using"));
+            }
+        });
 
         prepareAlbums();
 

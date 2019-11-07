@@ -89,6 +89,33 @@
 
 
     </LinearLayout>
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="550dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp">
+        <ImageView
+            android:id="@+id/shareBTN"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:src="@drawable/ic_share_black_24dp"
+
+            />
+        <ImageView
+            android:id="@+id/favBTN"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:src="@drawable/ic_favorite_black_24dp"
+
+            />
+    </LinearLayout>
 
     
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
