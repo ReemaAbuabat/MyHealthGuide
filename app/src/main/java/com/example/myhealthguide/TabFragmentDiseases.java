@@ -104,13 +104,13 @@ public class TabFragmentDiseases  extends Fragment {
                 "- Milk or lactose-free milk if you have lactose intolerance\n" +
                 "- Yogurt\n" +
                 "- Cheese","\n" +
-                "8- Fried foods and other foods high in saturated fat and trans fat\n" +
-                "9- Foods high in salt, also called sodium\n" +
-                "10 - Vegetables\n" +
-                "11- Sweets, such as baked goods, candy, and ice cream\n" +
-                "12- Beverages with added sugars, such as juice, regular soda, and regular sports or energy drinks\n" +
+                "1- Fried foods and other foods high in saturated fat and trans fat\n" +
+                "2- Foods high in salt, also called sodium\n" +
+                "3 - Vegetables\n" +
+                "4- Sweets, such as baked goods, candy, and ice cream\n" +
+                "5- Beverages with added sugars, such as juice, regular soda, and regular sports or energy drinks\n" +
                 "\n" +
-                "13- Drink water instead of sweetened beverages. Consider using a sugar substitute in your coffee or tea.\n" +
+                "6- Drink water instead of sweetened beverages. Consider using a sugar substitute in your coffee or tea.\n" +
                 "\n","Diabetes",R.drawable.ic_img);
         diseasesList.add(d);
         Disease d1 = new Disease("1- Eating vegetables\n" +
