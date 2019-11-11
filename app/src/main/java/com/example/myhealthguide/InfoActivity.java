@@ -2,6 +2,7 @@ package com.example.myhealthguide;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,12 +35,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.varunest.sparkbutton.SparkButton;
+import com.varunest.sparkbutton.SparkEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InfoActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private RowAdapter adapter;
     private List<Row> albumList;
@@ -48,7 +49,9 @@ public class InfoActivity extends AppCompatActivity {
     private boolean check ;
     private FirebaseUser user;
     private ProgressDialog progressDialog;
-    ImageView healthMin, share, favourit;
+    ImageView healthMin, share;
+    SparkButton sparkButton;
+
 
     ArrayList<Favourite> favouriteArrayList = new ArrayList<>();
 
@@ -62,14 +65,14 @@ public class InfoActivity extends AppCompatActivity {
         initCollapsingToolbar();
         getList();
 
-        healthMin = findViewById(R.id.healthMinstry);
-        share=findViewById(R.id.shareBTN);
-        favourit = findViewById(R.id.test);
-        favourit.setOnClickListener(new View.OnClickListener() {
+
+
+        sparkButton = findViewById(R.id.test);
+
+        sparkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(vlidate()){
+                if (vlidate()) {
                     user = FirebaseAuth.getInstance().getCurrentUser();
                     String userId = user.getUid();
 
@@ -82,15 +85,61 @@ public class InfoActivity extends AppCompatActivity {
                     Favourite favourite = new Favourite(id, albumList.get(postion).getdName());
                     favouriteReference.child(id).setValue(favourite);
                     Dialog("added to your favourite !");
+                    sparkButton.setChecked(true);
 
 
-                }else{
+                } else {
                     wrongInfoDialog("its already in your favourite list");
+                    sparkButton.setChecked(true);
+
+                }
+            }
+        });
+        sparkButton.setEventListener(new SparkEventListener() {
+            @Override
+            public void onEvent(ImageView button, boolean buttonState) {
+                for (Favourite favourite : favouriteArrayList) {
+                    if (name.equals(favourite.getFavName())) {
+                        sparkButton.setChecked(true);
+                        break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onEventAnimationEnd(ImageView button, boolean buttonState) {
+                for (Favourite favourite : favouriteArrayList) {
+                    if (name.equals(favourite.getFavName())) {
+                        sparkButton.setChecked(true);
+                        break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onEventAnimationStart(ImageView button, boolean buttonState) {
+
+                for (Favourite favourite : favouriteArrayList) {
+                    if (name.equals(favourite.getFavName())) {
+                        sparkButton.setChecked(true);
+                        break;
+                    }
                 }
 
 
             }
         });
+
+
+
+        sparkButton.playAnimation();
+
+
+        healthMin = findViewById(R.id.healthMinstry);
+        share=findViewById(R.id.shareBTN);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         healthBtn=(Button) findViewById(R.id.healthBtn);
         albumList = new ArrayList<>();
@@ -106,7 +155,7 @@ public class InfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
-                String shareBody = "/n allowed food:"+allowedFood+"/n Not allowed food: "+notAllowedFood;
+                String shareBody = "disease:"+name+"\n allowed food: \n"+allowedFood+"\n Not allowed food: \n"+notAllowedFood;
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, name);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(myIntent, "Share using"));
@@ -376,7 +425,5 @@ public class InfoActivity extends AppCompatActivity {
         alertDialog.show();
 
     }//end wrongInfoDialog()
-
-
 
 }
