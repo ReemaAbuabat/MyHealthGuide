@@ -48,8 +48,12 @@ public class InfoActivity extends AppCompatActivity {
     private FirebaseUser user;
     private ProgressDialog progressDialog;
 <<<<<<< HEAD
+<<<<<<< HEAD
     ImageView healthMin, share;
 
+=======
+    ImageView healthMin, share, favourit;
+>>>>>>> parent of ca3fec6... final sprint 4
 
 
 =======
@@ -68,6 +72,10 @@ public class InfoActivity extends AppCompatActivity {
         initCollapsingToolbar();
         getList();
 
+<<<<<<< HEAD
+=======
+        healthMin = findViewById(R.id.healthMinstry);
+>>>>>>> parent of ca3fec6... final sprint 4
         share=findViewById(R.id.shareBTN);
         favourit = findViewById(R.id.favBTN);
         favourit.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +104,9 @@ public class InfoActivity extends AppCompatActivity {
 
             }
         });
+<<<<<<< HEAD
+>>>>>>> parent of ca3fec6... final sprint 4
+=======
 >>>>>>> parent of ca3fec6... final sprint 4
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         healthBtn=(Button) findViewById(R.id.healthBtn);
