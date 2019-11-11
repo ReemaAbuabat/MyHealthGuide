@@ -35,7 +35,7 @@ public class InfoActivity extends AppCompatActivity {
     String name, allowedFood,notAllowedFood;
     Button healthBtn;
     ImageView healthMin, share;
-    String x;
+    String x,y;
 
 
     @Override
