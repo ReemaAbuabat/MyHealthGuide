@@ -39,9 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InfoActivity extends AppCompatActivity {
-<<<<<<< HEAD
-   
-=======
+
     private RecyclerView recyclerView;
     private RowAdapter adapter;
     private List<Row> albumList;
@@ -66,7 +64,7 @@ public class InfoActivity extends AppCompatActivity {
 
         healthMin = findViewById(R.id.healthMinstry);
         share=findViewById(R.id.shareBTN);
-        favourit = findViewById(R.id.favBTN);
+        favourit = findViewById(R.id.test);
         favourit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -379,5 +377,6 @@ public class InfoActivity extends AppCompatActivity {
 
     }//end wrongInfoDialog()
 
->>>>>>> parent of ca3fec6... final sprint 4
+
+
 }
