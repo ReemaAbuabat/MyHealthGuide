@@ -54,7 +54,55 @@ public class FavouriteListActivity extends AppCompatActivity {
 //        enableSwipeToDeleteAndUndo();
 
     }
-
+//    private void enableSwipeToDeleteAndUndo() {
+//        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+//                Log.d("swipe","test");
+//
+//                final int position = viewHolder.getAdapterPosition();
+//                final Disease disease = adapter.getDiseaseList().get(position);
+//
+//                adapter.removeDisease(position);
+//                String id = "" ;
+//                for(Favourite favourite: dataFav){
+//                    if(disease.getName().equals(favourite.getFavName())){
+//                        id = favourite.getId();
+//                    }
+//                }
+//                user = FirebaseAuth.getInstance().getCurrentUser();
+//                final String userId = user.getUid();
+//                DatabaseReference fav = FirebaseDatabase.getInstance().getReference().child(userId).child("favouriteArrayList").child(id);
+//                fav.removeValue();
+//
+//
+//
+//                Snackbar snackbar = Snackbar
+//                        .make(coordinatorLayout, "disease was removed", Snackbar.LENGTH_LONG);
+//
+//                snackbar.setAction("UNDO", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                        adapter.restoreDisease(disease, position);
+//                        recyclerView.scrollToPosition(position);
+//                        DatabaseReference fav = FirebaseDatabase.getInstance().getReference().child(userId).child("favouriteArrayList");
+//                        String newID = fav.push().getKey();
+//                        Favourite favourite = new Favourite(newID, disease.getName());
+//                        fav.child(newID).setValue(favourite);
+//
+//                    }//End of onClick()
+//                });//End of setAction()
+//
+//                snackbar.setActionTextColor(Color.YELLOW);
+//                snackbar.show();
+//
+//            }//End of onSwiped()
+//        };//End of v
+//
+//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+//        itemTouchhelper.attachToRecyclerView(recyclerView);
+//    }//End of v()
 
     private void initArray() {
 
