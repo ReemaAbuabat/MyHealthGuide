@@ -2,7 +2,6 @@ package com.example.myhealthguide;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,10 +47,14 @@ public class InfoActivity extends AppCompatActivity {
     private boolean check ;
     private FirebaseUser user;
     private ProgressDialog progressDialog;
+<<<<<<< HEAD
     ImageView healthMin, share;
 
 
 
+=======
+    ImageView healthMin, share, favourit;
+>>>>>>> parent of ca3fec6... final sprint 4
 
     ArrayList<Favourite> favouriteArrayList = new ArrayList<>();
 
@@ -65,13 +68,35 @@ public class InfoActivity extends AppCompatActivity {
         initCollapsingToolbar();
         getList();
 
-
-
-
-
-        healthMin = findViewById(R.id.healthMinstry);
         share=findViewById(R.id.shareBTN);
+        favourit = findViewById(R.id.favBTN);
+        favourit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                if(vlidate()){
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+                    String userId = user.getUid();
+
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    DatabaseReference myUser = reference.child(userId);
+                    DatabaseReference favouriteReference = myUser.child("favouriteArrayList");
+                    int postion = adapter.getPosition();
+                    String id = favouriteReference.push().getKey();
+                    Favourite favourite = new Favourite(id, albumList.get(postion).getdName());
+                    favouriteReference.child(id).setValue(favourite);
+                    Dialog("added to your favourite !");
+
+
+                }else{
+                    wrongInfoDialog("its already in your favourite list");
+                }
+
+
+            }
+        });
+>>>>>>> parent of ca3fec6... final sprint 4
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         healthBtn=(Button) findViewById(R.id.healthBtn);
         albumList = new ArrayList<>();
@@ -87,7 +112,7 @@ public class InfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
-                String shareBody = "disease:"+name+"\n allowed food: \n"+allowedFood+"\n Not allowed food: \n"+notAllowedFood;
+                String shareBody = "/n allowed food:"+allowedFood+"/n Not allowed food: "+notAllowedFood;
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, name);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(myIntent, "Share using"));

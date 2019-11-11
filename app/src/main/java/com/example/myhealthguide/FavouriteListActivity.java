@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class FavouriteListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private DiseasesInnerAdapter adapter;
+    private DiseasesAdapter adapter;
     private FirebaseUser user;
     DatabaseReference favouriteReference;
     DatabaseReference myUser;
@@ -47,8 +47,6 @@ public class FavouriteListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_list);
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
         initToolBar();
         initArray();
@@ -79,13 +77,13 @@ public class FavouriteListActivity extends AppCompatActivity {
                             "- Milk or lactose-free milk if you have lactose intolerance\n" +
                             "- Yogurt\n" +
                             "- Cheese","\n" +
-                    "1- Fried foods and other foods high in saturated fat and trans fat\n" +
-                    "2- Foods high in salt, also called sodium\n" +
-                    "3 - Vegetables\n" +
-                    "4- Sweets, such as baked goods, candy, and ice cream\n" +
-                    "5- Beverages with added sugars, such as juice, regular soda, and regular sports or energy drinks\n" +
+                    "8- Fried foods and other foods high in saturated fat and trans fat\n" +
+                    "9- Foods high in salt, also called sodium\n" +
+                    "10 - Vegetables\n" +
+                    "11- Sweets, such as baked goods, candy, and ice cream\n" +
+                    "12- Beverages with added sugars, such as juice, regular soda, and regular sports or energy drinks\n" +
                     "\n" +
-                    "6- Drink water instead of sweetened beverages. Consider using a sugar substitute in your coffee or tea.\n" +
+                    "13- Drink water instead of sweetened beverages. Consider using a sugar substitute in your coffee or tea.\n" +
                     "\n","Diabetes",R.drawable.ic_img);
             diseases.add(d);
             Disease d1 = new Disease("1- Eating vegetables\n" +
@@ -181,9 +179,8 @@ public class FavouriteListActivity extends AppCompatActivity {
                     }
 
                 }
-
-                setArrayValues();
                 progressDialog.hide();
+                setArrayValues();
                 init();
 
 
@@ -199,19 +196,19 @@ public class FavouriteListActivity extends AppCompatActivity {
 
     private void init() {
         recyclerView = findViewById(R.id.recycler_view);
-        adapter = new DiseasesInnerAdapter(finalFav, this);
+        adapter = new DiseasesAdapter(finalFav);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(true);
 
+        adapter.setOnItemClickListener(new DiseasesAdapter.OnItemClickListener(){
 
-        adapter.setOnItemClickListener(new DiseasesInnerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int postion) {
+            public void onItemClick(int position) {
 
-                moveToNewActivity(postion);
+                moveToNewActivity(position);
+
             }
         });
     }
