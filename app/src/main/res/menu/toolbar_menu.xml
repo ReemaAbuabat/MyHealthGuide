@@ -5,7 +5,7 @@
     tools:context=".BankActivity">
     <item
         android:id="@+id/action_add_favourite"
-        android:icon="@drawable/favorite"
+        android:icon="@drawable/heartt"
         android:orderInCategory="300"
         android:title="User"
         app:showAsAction="ifRoom"></item>

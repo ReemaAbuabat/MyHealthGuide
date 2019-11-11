@@ -2,17 +2,21 @@ package com.example.myhealthguide;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.ValueAnimator;
 import android.app.ActionBar;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -24,6 +28,13 @@ import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +45,15 @@ public class InfoActivity extends AppCompatActivity {
     private List<Row> albumList;
     String name, allowedFood,notAllowedFood;
     Button healthBtn;
+    private boolean check ;
+    private FirebaseUser user;
+    private ProgressDialog progressDialog;
     ImageView healthMin, share;
-    String x,y;
 
+
+
+
+    ArrayList<Favourite> favouriteArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +63,15 @@ public class InfoActivity extends AppCompatActivity {
         getExtras();
         initToolBar();
         initCollapsingToolbar();
+        getList();
 
-        share=findViewById(R.id.shareBTN);
+
+
+
+
         healthMin = findViewById(R.id.healthMinstry);
+        share=findViewById(R.id.shareBTN);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         healthBtn=(Button) findViewById(R.id.healthBtn);
         albumList = new ArrayList<>();
@@ -59,6 +82,17 @@ public class InfoActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                String shareBody = "disease:"+name+"\n allowed food: \n"+allowedFood+"\n Not allowed food: \n"+notAllowedFood;
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, name);
+                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(myIntent, "Share using"));
+            }
+        });
 
         prepareAlbums();
 
@@ -80,19 +114,14 @@ public class InfoActivity extends AppCompatActivity {
         });
 
 
+    }
+    private boolean vlidate() {
 
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(Intent.ACTION_SEND);
-                myIntent.setType("text/plain");
-                String shareBody = "/n allowed food:"+allowedFood+"/n Not allowed food: "+notAllowedFood;
-                myIntent.putExtra(Intent.EXTRA_SUBJECT, name);
-                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(myIntent, "Share using"));
-            }
-        });
 
+        if(check == true){
+            return true;
+        }
+        return false;
 
     }
     private void initToolBar() {
@@ -218,4 +247,115 @@ public class InfoActivity extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+
+    public void getList(){
+
+
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = user.getUid();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference  myUser = reference.child(userId);
+        DatabaseReference  favouriteReference = myUser.child("favouriteArrayList");
+        favouriteReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                favouriteArrayList.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    String id = postSnapshot.getKey();
+                    Log.d("test",id);
+                    Favourite favourite = postSnapshot.getValue(Favourite.class);
+                    if(!(favourite.getFavName().equals("firstEmptyOne"))){
+                        favouriteArrayList.add(favourite);
+                        Log.d("add",favourite.getFavName());
+                    }
+
+                }
+//
+                if(favouriteArrayList.isEmpty()){
+                    Log.d("empty", String.valueOf(favouriteArrayList.size()));
+                    check = true;
+
+                    return;
+                }
+
+                for(Favourite favourite: favouriteArrayList){
+                    int postion = adapter.getPosition();
+                    if(favourite.getFavName().equals(albumList.get(postion).getdName())) {
+                        Log.d("false",favourite.getFavName());
+                        check = false;
+
+                        return;
+                    }
+                    else{
+                        check = true;
+
+                    }
+
+                }
+                Log.d("check", String.valueOf(check));
+                return;
+
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+
+
+
+    }
+    private void wrongInfoDialog(String msg) {
+        androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(this);
+        // Setting Dialog Title
+        alertDialog.setTitle(R.string.Wrong);
+
+        // Setting Dialog Message
+        alertDialog.setMessage(msg);
+
+        // Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.exclamation);
+        //Setting Negative "ok" Button
+        alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }//end onClick
+        });//end setPositiveButton
+
+        alertDialog.show();
+
+    }//end wrongInfoDialog()
+
+    private void Dialog(String msg) {
+        androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(this);
+        // Setting Dialog Title
+
+
+        // Setting Dialog Message
+        alertDialog.setMessage(msg);
+
+        // Setting Icon to Dialog
+
+        //Setting Negative "ok" Button
+        alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+            }//end onClick
+        });//end setPositiveButton
+
+        alertDialog.show();
+
+    }//end wrongInfoDialog()
+
 }
