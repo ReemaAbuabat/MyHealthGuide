@@ -40,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextInputEditText profileName, profileEmail, profilePassword;
     private ProgressDialog progressDialog;
     private Button changeBtn;
-    String email,pass;
+    String email, pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,22 +76,19 @@ public class ProfileActivity extends AppCompatActivity {
                 // Setting Positive "Yes" Button
                 alertDialog.setPositiveButton("Change",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int which) {
+                            public void onClick(DialogInterface dialog, int which) {
                                 // Write your code here to execute after dialog
-                                if(input.getText().toString().isEmpty())
-                                {
+                                if (input.getText().toString().isEmpty()) {
                                     wrongInfoDialog("missing field");
 
-                                }else
-                                {
+                                } else {
 
-                                    if(input.getText().toString().length() < 6) {
+                                    if (input.getText().toString().length() < 6) {
                                         wrongInfoDialog("Password should be more than 6 characters, please try again");
-                                    }
-                                    else
-                                    {   progressDialog.setMessage("Please wait...");
+                                    } else {
+                                        progressDialog.setMessage("Please wait...");
                                         progressDialog.show();
-                                        changePass( input.getText().toString());
+                                        changePass(input.getText().toString());
                                     }
                                 }
 
@@ -144,7 +141,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-
         logout = findViewById(R.id.logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
                 alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
+                        dialogInterface.dismiss();
                     }
                 });
                 alertDialog.show();
@@ -180,28 +176,28 @@ public class ProfileActivity extends AppCompatActivity {
     }//End onClick()
 
     private void changePass(final String newPass) {
-         final FirebaseUser user;
+        final FirebaseUser user;
         user = FirebaseAuth.getInstance().getCurrentUser();
-        AuthCredential credential = EmailAuthProvider.getCredential(email,pass);
+        AuthCredential credential = EmailAuthProvider.getCredential(email, pass);
 
         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     user.updatePassword(newPass).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(!task.isSuccessful()){
+                            if (!task.isSuccessful()) {
                                 progressDialog.hide();
                                 wrongInfoDialog("something went wrong please try again");
-                            }else {
+                            } else {
                                 progressDialog.hide();
                                 goodDialog("Your password has been changed successfully");
 
                             }
                         }
                     });
-                }else {
+                } else {
                     progressDialog.hide();
                     wrongInfoDialog("Authentication Failed");
                 }
@@ -210,9 +206,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
     private void setPass() {
-         pass = MySharedPrefrance.getString(this, "password", "");
+        pass = MySharedPrefrance.getString(this, "password", "");
 
         profilePassword.setText(pass);
     }
@@ -232,6 +227,7 @@ public class ProfileActivity extends AppCompatActivity {
         });//End of OnClickListener()
 
     }//End of initToolBar();
+
     private void wrongInfoDialog(String msg) {
         final androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(this);
         // Setting Dialog Title

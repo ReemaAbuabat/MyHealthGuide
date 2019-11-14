@@ -27,6 +27,7 @@ public class DiseasesAdapter extends RecyclerView.Adapter<DiseasesAdapter.MyView
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
+
     public interface OnItemClickListener {
         void onItemClick(int postion);
     }//End of OnItemClickListener
@@ -56,16 +57,10 @@ public class DiseasesAdapter extends RecyclerView.Adapter<DiseasesAdapter.MyView
     }
 
 
-
-
     public DiseasesAdapter(List<Disease> diseaseList) {
-//        this.diseaseList = diseaseList;
 
-        /**
-         * NEW, NOV 3  - HIND UPDATE -> CONSTRUCTOR CHANGED!
-         */
+
         this.diseaseList = diseaseList;
-//        inflater = LayoutInflater.from(mContext);
         this.arraylist = new ArrayList<Disease>();
         this.arraylist.addAll(diseaseList);
         this.diseaseList = diseaseList;
@@ -84,7 +79,6 @@ public class DiseasesAdapter extends RecyclerView.Adapter<DiseasesAdapter.MyView
         Disease disease = diseaseList.get(position);
 
         holder.name.setText(disease.getName());
-//        Glide.with(mContext).load(disease.getImg()).into(holder.img);
 
     }
 
@@ -107,11 +101,6 @@ public class DiseasesAdapter extends RecyclerView.Adapter<DiseasesAdapter.MyView
         return diseaseList;
     }
 
-    /**
-     *
-     * NEW, NOV 3
-     * @param charText
-     */
 
     // Filter Class
     public void filter(String charText) {

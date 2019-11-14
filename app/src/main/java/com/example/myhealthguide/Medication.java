@@ -13,7 +13,7 @@ public class Medication {
     public ArrayList<Integer> hr = new ArrayList<>();
     public ArrayList<Integer> min = new ArrayList<>();
 
-    public Medication(String id, String medName, String medInstruction, String medImg, int dose, ArrayList<Integer> hr, ArrayList<Integer> min,ArrayList<Day> days) {
+    public Medication(String id, String medName, String medInstruction, String medImg, int dose, ArrayList<Integer> hr, ArrayList<Integer> min, ArrayList<Day> days) {
         this.id = id;
         this.medName = medName;
         this.medInstruction = medInstruction;
@@ -23,9 +23,10 @@ public class Medication {
         this.min = min;
         this.days = days;
     }
-public Medication(){
 
-}
+    public Medication() {
+
+    }
 
     public ArrayList<Day> getDays() {
         return days;

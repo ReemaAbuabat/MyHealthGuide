@@ -8,7 +8,8 @@ public class Day {
         this.name = name;
         this.check = check;
     }
-    public Day(){
+
+    public Day() {
 
     }
 

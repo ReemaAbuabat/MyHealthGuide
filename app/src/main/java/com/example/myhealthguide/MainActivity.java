@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
@@ -16,6 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 public class MainActivity extends AppCompatActivity {
 
     private Button profileBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,17 +36,19 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
 
 
-
     }//End onCreate()
+
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }//End of initToolBar();
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_ca){
+        if (id == R.id.action_ca) {
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
             return true;

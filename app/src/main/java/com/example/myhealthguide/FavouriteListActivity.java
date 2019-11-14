@@ -1,23 +1,18 @@
 package com.example.myhealthguide;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+
+//Not yet  String values
 public class FavouriteListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DiseasesInnerAdapter adapter;
@@ -53,7 +50,6 @@ public class FavouriteListActivity extends AppCompatActivity {
         initToolBar();
         initArray();
         getDataDetailProduct();
-//        enableSwipeToDeleteAndUndo();
 
     }
 
@@ -78,7 +74,7 @@ public class FavouriteListActivity extends AppCompatActivity {
                         "7- Dairy-nonfat or low fat\n" +
                         "- Milk or lactose-free milk if you have lactose intolerance\n" +
                         "- Yogurt\n" +
-                        "- Cheese","\n" +
+                        "- Cheese", "\n" +
                 "1- Fried foods and other foods high in saturated fat and trans fat\n" +
                 "2- Foods high in salt, also called sodium\n" +
                 "3 - Vegetables\n" +
@@ -86,7 +82,7 @@ public class FavouriteListActivity extends AppCompatActivity {
                 "5- Beverages with added sugars, such as juice, regular soda, and regular sports or energy drinks\n" +
                 "\n" +
                 "6- Drink water instead of sweetened beverages. Consider using a sugar substitute in your coffee or tea.\n" +
-                "\n","Diabetes",R.drawable.ic_img);
+                "\n", "Diabetes", R.drawable.ic_img);
         diseases.add(d);
         Disease d1 = new Disease("1- Eating vegetables\n" +
                 "\n" +
@@ -96,11 +92,11 @@ public class FavouriteListActivity extends AppCompatActivity {
                 "\t\n" +
                 "4- Including fat-free or low-fat dairy products, fish, poultry, beans, nuts, and vegetable oils.\n" +
                 "\t\n" +
-                "5- Nuts, seeds, dry beans, and peas (4-5 times/week)\n","1- Limiting foods that are high in saturated fat, such as fatty meats, full-fat dairy products, and tropical oils such as coconut, palm kernel, and palm oils.\n" +
+                "5- Nuts, seeds, dry beans, and peas (4-5 times/week)\n", "1- Limiting foods that are high in saturated fat, such as fatty meats, full-fat dairy products, and tropical oils such as coconut, palm kernel, and palm oils.\n" +
                 "\n" +
                 "2- Limiting sugar-sweetened beverages and sweets.\n" +
                 "\n" +
-                "3- Don't add salt when cooking rice, pasta, and hot cereals. \n","High Blood Pressure",R.drawable.ic_img);
+                "3- Don't add salt when cooking rice, pasta, and hot cereals. \n", "High Blood Pressure", R.drawable.ic_img);
         diseases.add(d1);
 
         Disease d2 = new Disease("Its called the 'HEALTHY HEART EATING'.\n " +
@@ -124,7 +120,7 @@ public class FavouriteListActivity extends AppCompatActivity {
                 "* Avocados\n" +
                 "\n" +
                 "\n" +
-                "\"You should eat the right amount of calories for your body, which will vary based on your sex, age, and physical activity level.\n  ","1- Sodium\n" +
+                "\"You should eat the right amount of calories for your body, which will vary based on your sex, age, and physical activity level.\n  ", "1- Sodium\n" +
                 "\n" +
                 "2- Saturated and trans fats:\n" +
                 "\n" +
@@ -136,7 +132,7 @@ public class FavouriteListActivity extends AppCompatActivity {
                 "*Sweetened drinks include soft drinks or sodas, fruit drinks, sweetened coffee and tea, energy drinks, alcoholic drinks, and favored waters.\n" +
                 "*Snacks and sweets include grain-based desserts such as cakes, pies, cookies, brownies, doughnuts; dairy desserts such as ice cream, frozen desserts, and pudding; candies; sugars; jams; syrups; and sweet toppings\n" +
                 "\n" +
-                "4- Alcohol\n","High Blood Cholesterol Level ",R.drawable.ic_img);
+                "4- Alcohol\n", "High Blood Cholesterol Level ", R.drawable.ic_img);
         diseases.add(d2);
 
         Disease d3 = new Disease("1- Increase your daily intake of iron-rich foods to help treat your iron-deficiency anemia (dried beans, dried fruits, eggs, lean red meat, salmon, iron-fortified breads and cereals, peas, tofu, dried fruits, and dark green leafy vegetables).\n" +
@@ -155,7 +151,7 @@ public class FavouriteListActivity extends AppCompatActivity {
                 "* Beans\n" +
                 "* Peas\n", "1- Avoid drinking black tea, which reduces iron absorption.\n" +
                 "\n" +
-                "2- Limit sodium, saturated and trans fats, added sugars, and alcohol.\n","Anemia", R.drawable.ic_img);
+                "2- Limit sodium, saturated and trans fats, added sugars, and alcohol.\n", "Anemia", R.drawable.ic_img);
         diseases.add(d3);
     }
 
@@ -173,11 +169,11 @@ public class FavouriteListActivity extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     String id = postSnapshot.getKey();
-                    Log.d("test",id);
+                    Log.d("test", id);
                     Favourite favourite = postSnapshot.getValue(Favourite.class);
-                    if(!(favourite.getFavName().equals("firstEmptyOne"))){
+                    if (!(favourite.getFavName().equals("firstEmptyOne"))) {
                         dataFav.add(favourite);
-                        Log.d("test",favourite.getFavName());
+                        Log.d("test", favourite.getFavName());
                     }
 
                 }
@@ -217,10 +213,10 @@ public class FavouriteListActivity extends AppCompatActivity {
     }
 
     private void setArrayValues() {
-        for(Favourite favourite: dataFav){
+        for (Favourite favourite : dataFav) {
 
-            for(Disease disease: diseases){
-                if(favourite.getFavName().equals(disease.getName())){
+            for (Disease disease : diseases) {
+                if (favourite.getFavName().equals(disease.getName())) {
                     finalFav.add(disease);
                     break;
                 }
@@ -230,7 +226,7 @@ public class FavouriteListActivity extends AppCompatActivity {
 
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_fav);
-        toolbar.setTitle("Favourite list");
+        toolbar.setTitle(getString(R.string.Favourite_list));
         setSupportActionBar(toolbar);
         //set toolbar back Button
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -242,17 +238,17 @@ public class FavouriteListActivity extends AppCompatActivity {
         });//End of OnClickListener()
 
     }//End of initToolBar();
-    private void moveToNewActivity (int position) {
-        Intent intent = new Intent(FavouriteListActivity.this , InfoActivity.class);
+
+    private void moveToNewActivity(int position) {
+        Intent intent = new Intent(FavouriteListActivity.this, InfoActivity.class);
         Disease v = finalFav.get(position);
         String name = v.getName();
         String allowedFood = v.getAllowed();
         String notAllowedFood = v.getNotAllowed();
-        intent.putExtra("name",name);
-        intent.putExtra("allowedFood",allowedFood);
-        intent.putExtra("notAllowedFood",notAllowedFood);
+        intent.putExtra(getString(R.string.name), name);
+        intent.putExtra(getString(R.string.allowedFood), allowedFood);
+        intent.putExtra(getString(R.string.notAllowedFood), notAllowedFood);
         startActivity(intent);
-
 
 
     }//End of moveToNewActivity()

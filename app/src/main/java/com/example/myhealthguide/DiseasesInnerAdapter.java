@@ -42,6 +42,7 @@ public class DiseasesInnerAdapter extends RecyclerView.Adapter<DiseasesInnerAdap
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
+
     public interface OnItemClickListener {
         void onItemClick(int postion);
     }//End of OnItemClickListener
@@ -74,65 +75,15 @@ public class DiseasesInnerAdapter extends RecyclerView.Adapter<DiseasesInnerAdap
     }
 
 
-
-
     public DiseasesInnerAdapter(List<Disease> diseaseList, Context mContext) {
-//        this.diseaseList = diseaseList;
-this.mContext = mContext;
-        /**
-         * NEW, NOV 3  - HIND UPDATE -> CONSTRUCTOR CHANGED!
-         */
+        this.mContext = mContext;
+
         this.diseaseList = diseaseList;
         getDataDetailProduct();
-//        inflater = LayoutInflater.from(mContext);
-//        this.arraylist = new ArrayList<Disease>();
-//        this.arraylist.addAll(diseaseList);
-//        this.diseaseList = diseaseList;
 
-//        getDataFav();
     }
 
-//    private void getDataFav() {
-//        for(Disease disease: diseaseList){
-//            Favourite favourite = new Favourite("",disease.getName());
-//            dataFav.add(favourite);
-//        }
-//
-//        user = FirebaseAuth.getInstance().getCurrentUser();
-//        String userId = user.getUid();
-//        reference = FirebaseDatabase.getInstance().getReference();
-//        myUser = reference.child(userId);
-//        favouriteReference = myUser.child("favouriteArrayList");
-//        favouriteReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//
-//                    String id = postSnapshot.getKey();
-//                    Log.d("test",id);
-//                    Favourite favourite = postSnapshot.getValue(Favourite.class);
-//                    for(Favourite favourite1 : dataFav){
-//                        if((favourite.getFavName().equals(favourite1.getFavName()))){
-//                                favourite1.setId(favourite.getId());
-//                        }
-//                    }
-//
-//
-//                }
-//
-//
-//
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//
-//    }
+
     private void getDataDetailProduct() {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -147,15 +98,14 @@ this.mContext = mContext;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     String id = postSnapshot.getKey();
-                    Log.d("test",id);
+                    Log.d("test", id);
                     Favourite favourite = postSnapshot.getValue(Favourite.class);
-                    if(!(favourite.getFavName().equals("firstEmptyOne"))){
+                    if (!(favourite.getFavName().equals("firstEmptyOne"))) {
                         dataFav.add(favourite);
-                        Log.d("test",favourite.getFavName());
+                        Log.d("test", favourite.getFavName());
                     }
 
                 }
-
 
 
             }
@@ -180,19 +130,17 @@ this.mContext = mContext;
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
 
-         disease = diseaseList.get(position);
+        disease = diseaseList.get(position);
 
-        Log.d("TESTTEST",disease.getName());
+        Log.d("TESTTEST", disease.getName());
 
         holder.name.setText(disease.getName());
-
-//        Glide.with(mContext).load(disease.getImg()).into(holder.img);
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 postion = position;
-                Dialog("Are you sure you want to unfavourite this disease");
+                Dialog(mContext.getString(R.string.unfavoriteMsh));
 
             }
         });
@@ -204,12 +152,6 @@ this.mContext = mContext;
         return diseaseList.size();
     }
 
-
-    /**
-     *
-     * NEW, NOV 3
-     * @param charText
-     */
 
     // Filter Class
     public void filter(String charText) {
@@ -226,6 +168,7 @@ this.mContext = mContext;
         }
         notifyDataSetChanged();
     }
+
     private void Dialog(String msg) {
         androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(this.mContext);
         // Setting Dialog Title
@@ -238,14 +181,14 @@ this.mContext = mContext;
 
         //Setting Negative "ok" Button
         alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-            deleteFavList();
-
-        }//end onClick
-    });//end setPositiveButton
-        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-              dialog.dismiss();
+                deleteFavList();
+
+            }//end onClick
+        });//end setPositiveButton
+        alertDialog.setNegativeButton(mContext.getString(R.string.Cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
 
             }//end onClick
         });//end setPositiveButton
@@ -256,17 +199,16 @@ this.mContext = mContext;
 
     private void deleteFavList() {
 
-        for(Favourite favourite: dataFav){
+        for (Favourite favourite : dataFav) {
 
-            if(favourite.getFavName().equals(diseaseList.get(postion).getName()))
-            {
-                Log.d("favNAme",favourite.getFavName());
-                Log.d("favDies",diseaseList.get(postion).getName());
+            if (favourite.getFavName().equals(diseaseList.get(postion).getName())) {
+                Log.d("favNAme", favourite.getFavName());
+                Log.d("favDies", diseaseList.get(postion).getName());
 
                 user = FirebaseAuth.getInstance().getCurrentUser();
                 String userId = user.getUid();
                 String favIdDelete = favourite.getId();
-                Log.d("IdFav",favIdDelete);
+                Log.d("IdFav", favIdDelete);
                 DatabaseReference favL = FirebaseDatabase.getInstance().getReference().child(userId).child("favouriteArrayList").child(favIdDelete);
                 favL.removeValue();
                 break;
@@ -274,12 +216,10 @@ this.mContext = mContext;
 
             }
         }
-        ((Activity)(mContext)).finish();
-
+        ((Activity) (mContext)).finish();
 
 
     }
-
 
 
 }

@@ -25,9 +25,10 @@ public class addDisease extends AppCompatActivity {
         initToolBar();
         init();
     }
+
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_addD);
-        toolbar.setTitle("Disease");
+        toolbar.setTitle(R.string.Disease);
         setSupportActionBar(toolbar);
         //set toolbar back Button
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -39,16 +40,17 @@ public class addDisease extends AppCompatActivity {
         });//End of OnClickListener()
 
     }//End of initToolBar();
+
     private void init() {
 
 
-        Disease d = new Disease("","","Diabietes",R.drawable.ic_img);
+        Disease d = new Disease("", "", getString(R.string.Diabietes), R.drawable.ic_img);
         diseasesList.add(d);
 
 
-;
+        ;
         recyclerView = findViewById(R.id.recycler_view);
-        mAdapter = new DiseasesAdapter( diseasesList);
+        mAdapter = new DiseasesAdapter(diseasesList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -1,11 +1,8 @@
 package com.example.myhealthguide;
 
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
-
-
 
 
 public class MySharedPrefrance {
