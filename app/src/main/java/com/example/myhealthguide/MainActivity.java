@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TabHost;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initToolBar();
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.cardiogram));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.medication));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -79,4 +80,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
     }//End of onOptionsItemSelected()
+
+
+
+
 }//End class
