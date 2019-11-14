@@ -43,4 +43,7 @@
     <string name="allowed_Food">Allowed food:</string>
     <string name="Not_allowed_food">Not allowed food:</string>
     <string name="Please_wait">Please wait...</string>
+    <string name="language">Language</string>
+    <string name="Arabic">Arabic</string>
+    <string name="English">English</string>
 </resources>

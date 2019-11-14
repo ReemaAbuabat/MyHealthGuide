@@ -34,7 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private ImageView logout;
+    private ImageView logout,language;
+
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private TextInputEditText profileName, profileEmail, profilePassword;
@@ -51,7 +52,16 @@ public class ProfileActivity extends AppCompatActivity {
         profileName = findViewById(R.id.profile_name);
         profileEmail = findViewById(R.id.profile_email);
         profilePassword = findViewById(R.id.profile_password);
+        language=findViewById(R.id.languageBtn);
         changeBtn = findViewById(R.id.change);
+
+        language.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ProfileActivity.this, LanguageActivity.class);
+                startActivity(i);            }
+        });
+
 
         changeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,6 +184,8 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
     }//End onClick()
+
+
 
     private void changePass(final String newPass) {
         final FirebaseUser user;
