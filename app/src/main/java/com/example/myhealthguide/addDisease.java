@@ -1,8 +1,6 @@
 package com.example.myhealthguide;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +11,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class addDisease extends AppCompatActivity {
+public class addDisease extends BaseActivity {
     private RecyclerView recyclerView;
     private DiseasesAdapter mAdapter;
     private List<Disease> diseasesList = new ArrayList<>();

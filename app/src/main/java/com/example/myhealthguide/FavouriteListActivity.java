@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 
 //Not yet  String values
-public class FavouriteListActivity extends AppCompatActivity {
+public class FavouriteListActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private DiseasesInnerAdapter adapter;
     private FirebaseUser user;

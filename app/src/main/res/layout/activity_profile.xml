@@ -145,16 +145,17 @@
                         android:layout_height="43dp"
                         android:layout_marginTop="10dp"
                         android:background="@color/colorPrimary"
-                        android:text="Change Password"
+                        android:text="@string/Change_Password"
                         android:textColor="#FFFFFF" />
 
-                    <ImageView
+                    <Button
                         android:id="@+id/languageBtn"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="171dp"
+                        android:layout_height="43dp"
                         android:layout_marginTop="10dp"
-                        android:clickable="true"
-                        android:src="@drawable/ic_language_black_24dp" />
+                        android:background="@color/colorPrimary"
+                        android:text="@string/Changelanguage"
+                        android:textColor="#FFFFFF" />
 
 
                 </LinearLayout>

@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class InnerAllowedanceActivity extends AppCompatActivity {
+public class InnerAllowedanceActivity extends BaseActivity {
 
     String name, allowedance;
     TextView allowedanceTXT;

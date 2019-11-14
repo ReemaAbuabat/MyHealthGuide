@@ -2,7 +2,6 @@ package com.example.myhealthguide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -21,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private EditText email, password;
     private Button login;
@@ -94,19 +93,18 @@ public class LoginActivity extends AppCompatActivity {
                                 catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
                                     Log.d("LoginActivity", "onComplete: malformed_email");
                                     progressDialog.dismiss();
-                                    wrongInfoDialog("Invalid email or password, please check and try again");
+                                    wrongInfoDialog(getString(R.string.invalidEmailMsg));
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                // Toast.makeText(LoginActivity.this,"something went wrong", Toast.LENGTH_LONG).show();
                                 progressDialog.dismiss();
-                                wrongInfoDialog("Invalid email or password, please check and try again");
+                                wrongInfoDialog(getString(R.string.invalidEmailPassMsg));
                             }
 
                         }
                     });
         } else {
-            wrongInfoDialog("Missing fields");
+            wrongInfoDialog(getString(R.string.MissFields));
         }
 
     }//end validate()
@@ -126,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
         } else {
             //todo: make dialog!
-            wrongInfoDialog("Please verify your email address");
+            wrongInfoDialog(getString(R.string.verifyEmailMsg));
             firebaseAuth.signOut();
         }
     }//End checkEmailVerification()

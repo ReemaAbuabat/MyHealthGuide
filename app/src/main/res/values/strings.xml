@@ -46,4 +46,19 @@
     <string name="language">Language</string>
     <string name="Arabic">Arabic</string>
     <string name="English">English</string>
+    <string name="invalidEmailMsg">Invalid email or password, please check and try again</string>
+    <string name="invalidEmailPassMsg">Invalid email or password, please check and try again</string>
+    <string name="MissFields">Missing fields, try Again please..</string>
+    <string name="verifyEmailMsg">Please verify your email address</string>
+    <string name="updateMsg">Are you sure you want to update this medication?</string>
+    <string name="sucessUpdate">Updated successfully</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="deleteMsg">Are you sure you want to delete this medication?</string>
+    <string name="dayWarning">you have to choose at least one day!</string>
+    <string name="successDelete">Deleted successfully</string>
+    <string name="Medication_information">Medication information</string>
+    <string name="Nothing">Nothing</string>
+    <string name="Changelanguage">Change Language</string>
+    <string name="Change_Password">Change Password</string>
 </resources>

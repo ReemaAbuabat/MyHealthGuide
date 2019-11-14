@@ -35,7 +35,7 @@ import com.varunest.sparkbutton.SparkEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoActivity extends AppCompatActivity {
+public class InfoActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private RowAdapter adapter;
     private List<Row> albumList;

@@ -40,7 +40,7 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
-public class MedicationInformation extends AppCompatActivity {
+public class MedicationInformation extends BaseActivity {
     private String id;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
@@ -78,20 +78,20 @@ public class MedicationInformation extends AppCompatActivity {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MedicationInformation.this);
 
                 // Setting Dialog Message
-                alertDialog.setMessage("Are you sure you want to update this medication?");
+                alertDialog.setMessage(getString(R.string.updateMsg));
 
                 //Setting Negative "ok" Button
-                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alertDialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if (validate()) {
-                            Dialog2("updated successfully");
+                            Dialog2(getString(R.string.sucessUpdate));
                         }
 
 
                     }//end onClick
                 });//end setPositiveButton
 
-                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -108,10 +108,10 @@ public class MedicationInformation extends AppCompatActivity {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MedicationInformation.this);
 
                 // Setting Dialog Message
-                alertDialog.setMessage("Are you sure you want to delete this medication?");
+                alertDialog.setMessage(getString(R.string.deleteMsg));
 
                 //Setting Negative "ok" Button
-                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alertDialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         deleteMed();
 
@@ -120,7 +120,7 @@ public class MedicationInformation extends AppCompatActivity {
                     }//end onClick
                 });//end setPositiveButton
 
-                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -184,14 +184,10 @@ public class MedicationInformation extends AppCompatActivity {
 
 
         if (name.isEmpty() || timeClock.isEmpty()) {
-            wrongInfoDialog("Missing field");
+            wrongInfoDialog(getString(R.string.MissFields));
         } else if (sun.isChecked() || mon.isChecked() || tue.isChecked() || wed.isChecked() || thu.isChecked() || fri.isChecked() || sat.isChecked()) {
             int numOfMedicatoin = parseInt(numOfDose);
-//                            switchMed(timeClock, numOfMedicatoin);
-//                            for (int i = 0; i < hr.length; i++) {
-//                                hrMed.add(hr[i]);
-//                                minMed.add(min[i]);
-//                            }
+
             if (selectedImg == null) {
                 selectedImg = PreImg;
             }
@@ -215,7 +211,7 @@ public class MedicationInformation extends AppCompatActivity {
 
 
         } else {
-            wrongInfoDialog("you have to choose at least one day!");
+            wrongInfoDialog(getString(R.string.dayWarning));
         }
 
 
@@ -225,65 +221,65 @@ public class MedicationInformation extends AppCompatActivity {
     }
 
     private void deleteMed() {
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage(getString(R.string.Please_wait));
         progressDialog.show();
         user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
         DatabaseReference med = FirebaseDatabase.getInstance().getReference().child(userId).child("medicationList").child(id);
         med.removeValue();
 
-        Dialog("deleted successfully");
+        Dialog(getString(R.string.successDelete));
 
     }
 
     private void checkDays() {
         if (sun.isChecked()) {
-            Day day = new Day("sun", true);
+            Day day = new Day(getString(R.string.sun), true);
             days.add(day);
         } else {
-            Day day = new Day("sun", false);
+            Day day = new Day(getString(R.string.sun), false);
             days.add(day);
         }
         if (mon.isChecked()) {
-            Day day = new Day("mon", true);
+            Day day = new Day(getString(R.string.mon), true);
             days.add(day);
         } else {
-            Day day = new Day("mon", false);
+            Day day = new Day(getString(R.string.mon), false);
             days.add(day);
         }
         if (tue.isChecked()) {
-            Day day = new Day("tue", true);
+            Day day = new Day(getString(R.string.tue), true);
             days.add(day);
         } else {
-            Day day = new Day("tue", false);
+            Day day = new Day(getString(R.string.tue), false);
             days.add(day);
         }
         if (wed.isChecked()) {
-            Day day = new Day("wed", true);
+            Day day = new Day(getString(R.string.wed), true);
             days.add(day);
         } else {
-            Day day = new Day("wed", false);
+            Day day = new Day(getString(R.string.wed), false);
             days.add(day);
         }
         if (thu.isChecked()) {
-            Day day = new Day("thu", true);
+            Day day = new Day(getString(R.string.thur), true);
             days.add(day);
         } else {
-            Day day = new Day("thu", false);
+            Day day = new Day(getString(R.string.thur), false);
             days.add(day);
         }
         if (fri.isChecked()) {
-            Day day = new Day("fri", true);
+            Day day = new Day(getString(R.string.fri), true);
             days.add(day);
         } else {
-            Day day = new Day("fri", false);
+            Day day = new Day(getString(R.string.fri), false);
             days.add(day);
         }
         if (sat.isChecked()) {
-            Day day = new Day("sat", true);
+            Day day = new Day(getString(R.string.sat), true);
             days.add(day);
         } else {
-            Day day = new Day("sat", false);
+            Day day = new Day(getString(R.string.sat), false);
             days.add(day);
         }
 
@@ -323,7 +319,7 @@ public class MedicationInformation extends AppCompatActivity {
 
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_medInfo);
-        toolbar.setTitle("Medication information");
+        toolbar.setTitle(getString(R.string.Medication_information));
         setSupportActionBar(toolbar);
         //set toolbar back Button
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -338,7 +334,7 @@ public class MedicationInformation extends AppCompatActivity {
 
     private void getDataDetailProduct() {
 
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage(getString(R.string.Please_wait));
         progressDialog.show();
         user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
@@ -376,7 +372,7 @@ public class MedicationInformation extends AppCompatActivity {
     private void setView() {
         nameText.setText(medication.getMedName());
         if (medication.getMedInstruction().length() == 0) {
-            instruction.setText("Nothing");
+            instruction.setText(getString(R.string.Nothing));
         } else {
             instruction.setText(medication.getMedInstruction());
         }
@@ -400,25 +396,25 @@ public class MedicationInformation extends AppCompatActivity {
         ArrayList<Day> days = medication.getDays();
 
         for (Day d : days) {
-            if (d.getName().equals("sun") && d.isCheck()) {
+            if (d.getName().equals(getString(R.string.sun)) && d.isCheck()) {
                 sun.setChecked(true);
             }
-            if (d.getName().equals("mon") && d.isCheck()) {
+            if (d.getName().equals(getString(R.string.mon)) && d.isCheck()) {
                 mon.setChecked(true);
             }
-            if (d.getName().equals("tue") && d.isCheck()) {
+            if (d.getName().equals(getString(R.string.tue)) && d.isCheck()) {
                 tue.setChecked(true);
             }
-            if (d.getName().equals("wed") && d.isCheck()) {
+            if (d.getName().equals(getString(R.string.wed)) && d.isCheck()) {
                 wed.setChecked(true);
             }
-            if (d.getName().equals("thu") && d.isCheck()) {
+            if (d.getName().equals(getString(R.string.thur)) && d.isCheck()) {
                 thu.setChecked(true);
             }
-            if (d.getName().equals("fri") && d.isCheck()) {
+            if (d.getName().equals(getString(R.string.fri)) && d.isCheck()) {
                 fri.setChecked(true);
             }
-            if (d.getName().equals("sat") && d.isCheck()) {
+            if (d.getName().equals(getString(R.string.sat)) && d.isCheck()) {
                 sat.setChecked(true);
             }
         }
@@ -428,11 +424,11 @@ public class MedicationInformation extends AppCompatActivity {
 
     private void selectImage() {
 
-        final CharSequence[] items = {"Take Photo", "Choose from Library",
-                "Cancel"};
+        final CharSequence[] items = {getString(R.string.Take_Photo), getString(R.string.Choose_from_Library),
+                getString(R.string.Cancel)};
 
         TextView title = new TextView(this);
-        title.setText("Add Photo!");
+        title.setText(getString(R.string.Add_Photo));
         title.setBackgroundColor(getColor(R.color.colorPrimary));
         title.setPadding(10, 15, 15, 10);
         title.setGravity(Gravity.CENTER);
@@ -447,13 +443,13 @@ public class MedicationInformation extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (items[item].equals("Take Photo")) {
+                if (items[item].equals(R.string.Take_Photo)) {
                     captureFromCamera();
                 }//End of if
-                else if (items[item].equals("Choose from Library")) {
+                else if (items[item].equals(R.string.Choose_from_Library)) {
                     pickFromGallery();
                 }//End of else if
-                else if (items[item].equals("Cancel")) {
+                else if (items[item].equals(R.string.Cancel)) {
                     dialog.dismiss();
                 }//End of else if
             }//End of onClick()

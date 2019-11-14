@@ -9,11 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.TabHost;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private Button profileBtn;
 
@@ -80,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
     }//End of onOptionsItemSelected()
-
-
 
 
 }//End class
