@@ -2,11 +2,8 @@ package com.example.myhealthguide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,11 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -70,13 +65,11 @@ public class ProfileActivity extends BaseActivity {
                 // Creating alert Dialog with one Button
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
 
-                //AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-
                 // Setting Dialog Title
-                alertDialog.setTitle("PASSWORD");
+                alertDialog.setTitle(getString(R.string.passwordNew));
 
                 // Setting Dialog Message
-                alertDialog.setMessage("Enter new password");
+                alertDialog.setMessage(getString(R.string.enter_new_pass));
                 final EditText input = new EditText(ProfileActivity.this);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -85,19 +78,19 @@ public class ProfileActivity extends BaseActivity {
                 alertDialog.setView(input); // uncomment this line
 
                 // Setting Positive "Yes" Button
-                alertDialog.setPositiveButton("Change",
+                alertDialog.setPositiveButton(getString(R.string.change),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Write your code here to execute after dialog
                                 if (input.getText().toString().isEmpty()) {
-                                    wrongInfoDialog("missing field");
+                                    wrongInfoDialog(getString(R.string.MissFields));
 
                                 } else {
 
                                     if (input.getText().toString().length() < 6) {
-                                        wrongInfoDialog("Password should be more than 6 characters, please try again");
+                                        wrongInfoDialog(getString(R.string.passMin));
                                     } else {
-                                        progressDialog.setMessage("Please wait...");
+                                        progressDialog.setMessage(getString(R.string.Please_wait));
                                         progressDialog.show();
                                         changePass(input.getText().toString());
                                     }
@@ -106,7 +99,7 @@ public class ProfileActivity extends BaseActivity {
                             }
                         });
                 // Setting Negative "NO" Button
-                alertDialog.setNegativeButton("cancel",
+                alertDialog.setNegativeButton(getString(R.string.Cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Write your code here to execute after dialog
@@ -126,7 +119,7 @@ public class ProfileActivity extends BaseActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         final String userId = user.getUid();
 
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage(getString(R.string.Please_wait));
         progressDialog.show();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userRef = reference.child(userId);
@@ -161,10 +154,10 @@ public class ProfileActivity extends BaseActivity {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
 
                 // Setting Dialog Message
-                alertDialog.setMessage("Are you sure you want to logout?");
+                alertDialog.setMessage(getString(R.string.logoutMsg));
 
                 //Setting Negative "ok" Button
-                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alertDialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         firebaseAuth.signOut();
                         finish();
@@ -173,7 +166,7 @@ public class ProfileActivity extends BaseActivity {
                     }//end onClick
                 });//end setPositiveButton
 
-                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -202,17 +195,17 @@ public class ProfileActivity extends BaseActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (!task.isSuccessful()) {
                                 progressDialog.hide();
-                                wrongInfoDialog("something went wrong please try again");
+                                wrongInfoDialog(getString(R.string.Something_went_wrong));
                             } else {
                                 progressDialog.hide();
-                                goodDialog("Your password has been changed successfully");
+                                goodDialog(getString(R.string.pass_changed_successfully));
 
                             }
                         }
                     });
                 } else {
                     progressDialog.hide();
-                    wrongInfoDialog("Authentication Failed");
+                    wrongInfoDialog(getString(R.string.Authentication_Failed));
                 }
             }
         });
@@ -227,7 +220,7 @@ public class ProfileActivity extends BaseActivity {
 
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_profile);
-        toolbar.setTitle("Profile");
+        toolbar.setTitle(getString(R.string.Profile));
         setSupportActionBar(toolbar);
         //set toolbar back Button
         toolbar.setNavigationIcon(R.drawable.ic_back);

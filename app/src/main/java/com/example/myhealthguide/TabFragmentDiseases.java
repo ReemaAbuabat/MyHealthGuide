@@ -32,7 +32,7 @@ public class TabFragmentDiseases extends Fragment {
 
 
         searchView = view.findViewById(R.id.searchViewId);
-        searchView.setQueryHint("Search...");
+        searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

@@ -237,6 +237,7 @@ public class InfoActivity extends BaseActivity {
                 }
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbar.setTitle(name);
+
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbar.setTitle(name);
