@@ -1,7 +1,6 @@
 package com.example.myhealthguide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class User {
 
@@ -17,14 +16,5 @@ public class User {
         this.favouriteArrayList = favouriteArrayList;
     }
 
-    //    public User(String userEmail, String name, ArrayList) {
-//        this.userEmail = userEmail;
-//        this.name = name;
-//
-//
-//    }//End constructor
-//    public void addMedication(Medication med){
-//        medicationList.add(med);
-//    }
 
 }//End class

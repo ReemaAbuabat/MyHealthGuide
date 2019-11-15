@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@drawable/main_bggs"
+    android:orientation="vertical"
     tools:context=".SignupActivity">
 
     <LinearLayout
-        android:background="#A6FFFFFF"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#A6FFFFFF"
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_marginTop="30dp"
             android:layout_width="226dp"
             android:layout_height="184dp"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             android:src="@drawable/finallogo" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,40 +28,40 @@
 
             >
 
-    <EditText
-        android:id="@+id/signupName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Enter your name"
-        android:textStyle="italic"
-        android:textSize="15dp"
-        />
+            <EditText
+                android:id="@+id/signupName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="@string/enter_your_name"
+                android:inputType="textPersonName"
+                android:textSize="15dp"
+                android:textStyle="italic" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
             >
-    <EditText
-        android:id="@+id/signupEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="Enter your email address"
-        android:textStyle="italic"
-        android:textSize="15dp"
-        />
+
+            <EditText
+                android:id="@+id/signupEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="@string/enter_your_email_address"
+                android:inputType="textEmailAddress"
+                android:textSize="15dp"
+                android:textStyle="italic" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -68,63 +69,60 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="#888383"
-            >
+            app:passwordToggleTint="#888383">
 
-    <EditText
-        android:id="@+id/signupPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Enter your password"
-        android:textStyle="italic"
-        android:textSize="15dp"
-        />
+            <EditText
+                android:id="@+id/signupPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:ems="10"
+                android:hint="@string/enter_your_password"
+                android:inputType="textPassword"
+                android:textSize="15dp"
+                android:textStyle="italic" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="#888383"
-          >
+            app:passwordToggleTint="#888383">
 
-         <EditText
-            android:id="@+id/signupcPass"
+            <EditText
+                android:id="@+id/signupcPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:ems="10"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:textSize="15dp"
+                android:textStyle="italic" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/signupBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="40dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="Confirm password"
-            android:textStyle="italic"
-            android:textSize="15dp"
-        />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:background="#860017"
+            android:text="@string/signup"
+            android:textColor="#fff" />
 
-    <Button
-        android:id="@+id/signupBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Signup"
-        android:textColor="#fff"
-        android:background="#860017"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp"
-       />
         <TextView
             android:id="@+id/have_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="Already have an account? Sign-in"
+            android:text="@string/already_have_an_account_sign_in"
             android:textColor="#004cff" />
 
 

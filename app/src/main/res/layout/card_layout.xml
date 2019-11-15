@@ -25,8 +25,8 @@
                 android:layout_height="@dimen/album_cover_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:src="@drawable/medi"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                android:src="@drawable/medi" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,7 +50,6 @@
                 android:paddingEnd="@dimen/album_title_padding"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
-
 
 
         </RelativeLayout>

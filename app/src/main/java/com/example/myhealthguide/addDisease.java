@@ -1,8 +1,6 @@
 package com.example.myhealthguide;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +11,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class addDisease extends AppCompatActivity {
+public class addDisease extends BaseActivity {
     private RecyclerView recyclerView;
     private DiseasesAdapter mAdapter;
     private List<Disease> diseasesList = new ArrayList<>();
@@ -25,9 +23,10 @@ public class addDisease extends AppCompatActivity {
         initToolBar();
         init();
     }
+
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_addD);
-        toolbar.setTitle("Disease");
+        toolbar.setTitle(R.string.Disease);
         setSupportActionBar(toolbar);
         //set toolbar back Button
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -39,16 +38,17 @@ public class addDisease extends AppCompatActivity {
         });//End of OnClickListener()
 
     }//End of initToolBar();
+
     private void init() {
 
 
-        Disease d = new Disease("","","Diabietes",R.drawable.ic_img);
+        Disease d = new Disease("", "", getString(R.string.Diabietes), R.drawable.ic_img);
         diseasesList.add(d);
 
 
-;
+        ;
         recyclerView = findViewById(R.id.recycler_view);
-        mAdapter = new DiseasesAdapter( diseasesList);
+        mAdapter = new DiseasesAdapter(diseasesList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

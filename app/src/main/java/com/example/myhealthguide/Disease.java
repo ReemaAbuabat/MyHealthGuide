@@ -3,7 +3,6 @@ package com.example.myhealthguide;
 public class Disease {
 
 
-
     private String allowed, notAllowed, name;
     private int img;
 

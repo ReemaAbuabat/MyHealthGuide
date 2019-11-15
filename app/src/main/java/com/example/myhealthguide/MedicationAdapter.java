@@ -4,7 +4,6 @@ package com.example.myhealthguide;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,51 +13,50 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.MyViewHolder> {
 
-private Context mContext;
-private List<Medication> medicationAdapterList;
-private OnItemClickListener mListener;
+    private Context mContext;
+    private List<Medication> medicationAdapterList;
+    private OnItemClickListener mListener;
 
-public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
-        }
-public interface OnItemClickListener {
-    void onItemClick(int postion);
-}//End of OnItemClickListener
-
-public class MyViewHolder extends RecyclerView.ViewHolder {
-    public TextView name;
-    public ImageView image;
-
-
-    public MyViewHolder(View view, final MedicationAdapter.OnItemClickListener listener) {
-        super(view);
-
-        name = (TextView) view.findViewById(R.id.med_name);
-        image= view.findViewById(R.id.image_med);
-
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(position);
-                    }//End of inner if
-                }//End of big if
-            }
-        });
-
     }
-}
+
+    public interface OnItemClickListener {
+        void onItemClick(int postion);
+    }//End of OnItemClickListener
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView name;
+        public ImageView image;
+
+
+        public MyViewHolder(View view, final MedicationAdapter.OnItemClickListener listener) {
+            super(view);
+
+            name = (TextView) view.findViewById(R.id.med_name);
+            image = view.findViewById(R.id.image_med);
+
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }//End of inner if
+                    }//End of big if
+                }
+            });
+
+        }
+    }
 
     public MedicationAdapter(List<Medication> medicationAdapterList) {
         this.medicationAdapterList = medicationAdapterList;
@@ -78,8 +76,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         Medication medication = medicationAdapterList.get(position);
 
         holder.name.setText(medication.getMedName());
-      Bitmap bitmap = StringToBitMap(medication.getMedImg());
-      holder.image.setImageBitmap(bitmap);
+        Bitmap bitmap = StringToBitMap(medication.getMedImg());
+        holder.image.setImageBitmap(bitmap);
 
     }
 
@@ -89,14 +87,12 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-
-    public Bitmap StringToBitMap(String encodedString){
-        try{
-            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.getMessage();
             return null;
         }

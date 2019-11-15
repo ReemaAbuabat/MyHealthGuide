@@ -11,18 +11,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends BaseActivity {
 
     private EditText forgetPassMailET;
     private Button resetBtn;
     private TextView backToLoginBtn;
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,33 +39,33 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            String usermail = forgetPassMailET.getText().toString().trim();
+                String usermail = forgetPassMailET.getText().toString().trim();
 
-            if(usermail.equals("")){
-                wrongInfoDialog("Please enter your registered email address!");
+                if (usermail.equals("")) {
+                    wrongInfoDialog(getString(R.string.registered_email_address));
 
-                 } else {
-                firebaseAuth.sendPasswordResetEmail(usermail)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    wrongInfoDialog("Rest password email has been sent!");
-                                    finish();
-                                    startActivity(new Intent(ForgotPasswordActivity.this,LoginActivity.class));
-                                }else {
-                                    wrongInfoDialog("Error in sending password reset email!");
+                } else {
+                    firebaseAuth.sendPasswordResetEmail(usermail)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        wrongInfoDialog(getString(R.string.reset_pass));
+                                        finish();
+                                        startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
+                                    } else {
+                                        wrongInfoDialog(getString(R.string.error_reset_pass));
 
+                                    }
                                 }
-                            }
-                        });
+                            });
                 }
             }
         });
 
     }//End onCreate()
 
-    private void init(){
+    private void init() {
         forgetPassMailET = findViewById(R.id.forgetPassEmailET);
         resetBtn = findViewById(R.id.resetButton);
         backToLoginBtn = findViewById(R.id.backToLogin);

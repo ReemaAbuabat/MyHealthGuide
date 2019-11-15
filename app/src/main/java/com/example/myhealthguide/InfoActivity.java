@@ -2,13 +2,10 @@ package com.example.myhealthguide;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.ValueAnimator;
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,12 +16,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -35,18 +28,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import com.varunest.sparkbutton.SparkButton;
 import com.varunest.sparkbutton.SparkEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoActivity extends AppCompatActivity {
+public class InfoActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private RowAdapter adapter;
     private List<Row> albumList;
-    String name, allowedFood,notAllowedFood;
+    String name, allowedFood, notAllowedFood;
     Button healthBtn;
-    private boolean check ;
+    private boolean check;
     private FirebaseUser user;
     private ProgressDialog progressDialog;
     ImageView healthMin, share;
@@ -66,7 +61,6 @@ public class InfoActivity extends AppCompatActivity {
         getList();
 
 
-
         sparkButton = findViewById(R.id.test);
 
         sparkButton.setOnClickListener(new View.OnClickListener() {
@@ -84,12 +78,12 @@ public class InfoActivity extends AppCompatActivity {
                     String id = favouriteReference.push().getKey();
                     Favourite favourite = new Favourite(id, albumList.get(postion).getdName());
                     favouriteReference.child(id).setValue(favourite);
-                    Dialog("added to your favourite !");
+                    Dialog(getString(R.string.added));
                     sparkButton.setChecked(true);
 
 
                 } else {
-                    wrongInfoDialog("its already in your favourite list");
+                    wrongInfoDialog(getString(R.string.allready_in_favorite));
                     sparkButton.setChecked(true);
 
                 }
@@ -133,15 +127,14 @@ public class InfoActivity extends AppCompatActivity {
         });
 
 
-
         sparkButton.playAnimation();
 
 
         healthMin = findViewById(R.id.healthMinstry);
-        share=findViewById(R.id.shareBTN);
+        share = findViewById(R.id.shareBTN);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        healthBtn=(Button) findViewById(R.id.healthBtn);
+        healthBtn = (Button) findViewById(R.id.healthBtn);
         albumList = new ArrayList<>();
         adapter = new RowAdapter(this, albumList);
 
@@ -155,10 +148,10 @@ public class InfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
-                String shareBody = "disease:"+name+"\n allowed food: \n"+allowedFood+"\n Not allowed food: \n"+notAllowedFood;
+                String shareBody = "" + getString(R.string.disease) + name + "\n " + getString(R.string.allowed_Food) + "\n" + allowedFood + "\n " + getString(R.string.Not_allowed_food) + "\n" + notAllowedFood;
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, name);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(myIntent, "Share using"));
+                startActivity(Intent.createChooser(myIntent, getString(R.string.share_using)));
             }
         });
 
@@ -183,15 +176,17 @@ public class InfoActivity extends AppCompatActivity {
 
 
     }
+
     private boolean vlidate() {
 
 
-        if(check == true){
+        if (check == true) {
             return true;
         }
         return false;
 
     }
+
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(name);
@@ -242,6 +237,7 @@ public class InfoActivity extends AppCompatActivity {
                 }
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbar.setTitle(name);
+
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbar.setTitle(name);
@@ -251,19 +247,17 @@ public class InfoActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Adding few albums for testing
-     */
+
     private void prepareAlbums() {
         int[] covers = new int[]{
                 R.drawable.allowed_food,
                 R.drawable.not_allowed_food,
         };
 
-        Row a = new Row("Allowed Food", "", covers[0],allowedFood,name);
+        Row a = new Row(getString(R.string.Allowed_Food), "", covers[0], allowedFood, name);
         albumList.add(a);
 
-        a = new Row("Forbidden Food", "", covers[1],notAllowedFood,name);
+        a = new Row(getString(R.string.Forbidden_Food), "", covers[1], notAllowedFood, name);
         albumList.add(a);
 
 
@@ -317,15 +311,14 @@ public class InfoActivity extends AppCompatActivity {
     }
 
 
-    public void getList(){
-
+    public void getList() {
 
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference  myUser = reference.child(userId);
-        DatabaseReference  favouriteReference = myUser.child("favouriteArrayList");
+        final DatabaseReference myUser = reference.child(userId);
+        DatabaseReference favouriteReference = myUser.child("favouriteArrayList");
         favouriteReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -333,31 +326,30 @@ public class InfoActivity extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     String id = postSnapshot.getKey();
-                    Log.d("test",id);
+                    Log.d("test", id);
                     Favourite favourite = postSnapshot.getValue(Favourite.class);
-                    if(!(favourite.getFavName().equals("firstEmptyOne"))){
+                    if (!(favourite.getFavName().equals("firstEmptyOne"))) {
                         favouriteArrayList.add(favourite);
-                        Log.d("add",favourite.getFavName());
+                        Log.d("add", favourite.getFavName());
                     }
 
                 }
-//
-                if(favouriteArrayList.isEmpty()){
+
+                if (favouriteArrayList.isEmpty()) {
                     Log.d("empty", String.valueOf(favouriteArrayList.size()));
                     check = true;
 
                     return;
                 }
 
-                for(Favourite favourite: favouriteArrayList){
+                for (Favourite favourite : favouriteArrayList) {
                     int postion = adapter.getPosition();
-                    if(favourite.getFavName().equals(albumList.get(postion).getdName())) {
-                        Log.d("false",favourite.getFavName());
+                    if (favourite.getFavName().equals(albumList.get(postion).getdName())) {
+                        Log.d("false", favourite.getFavName());
                         check = false;
 
                         return;
-                    }
-                    else{
+                    } else {
                         check = true;
 
                     }
@@ -378,9 +370,8 @@ public class InfoActivity extends AppCompatActivity {
         });
 
 
-
-
     }
+
     private void wrongInfoDialog(String msg) {
         androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(this);
         // Setting Dialog Title
@@ -415,8 +406,6 @@ public class InfoActivity extends AppCompatActivity {
         //Setting Negative "ok" Button
         alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
-
 
 
             }//end onClick
