@@ -205,7 +205,7 @@
                             android:background="@drawable/radiobtn_bck"
                             android:button="@null"
                             android:gravity="center"
-                            android:text="@string/sun"
+                            android:text="SUN"
                             android:textAllCaps="true" />
 
                         <CheckBox
@@ -216,7 +216,7 @@
                             android:background="@drawable/radiobtn_bck"
                             android:button="@null"
                             android:gravity="center"
-                            android:text="@string/mon"
+                            android:text="MON"
 
                             android:textAllCaps="true" />
 
@@ -228,7 +228,7 @@
                             android:background="@drawable/radiobtn_bck"
                             android:button="@null"
                             android:gravity="center"
-                            android:text="@string/tue"
+                            android:text="TUE"
                             android:textAllCaps="true" />
 
                         <CheckBox
@@ -239,7 +239,7 @@
                             android:background="@drawable/radiobtn_bck"
                             android:button="@null"
                             android:gravity="center"
-                            android:text="@string/wed"
+                            android:text="WED"
                             android:textAllCaps="true" />
 
                         <CheckBox
@@ -250,7 +250,7 @@
                             android:background="@drawable/radiobtn_bck"
                             android:button="@null"
                             android:gravity="center"
-                            android:text="@string/thur"
+                            android:text="THU"
                             android:textAllCaps="true" />
 
                         <CheckBox
@@ -261,7 +261,7 @@
                             android:background="@drawable/radiobtn_bck"
                             android:button="@null"
                             android:gravity="center"
-                            android:text="@string/fri"
+                            android:text="FRI"
                             android:textAllCaps="true" />
 
                         <CheckBox
@@ -272,7 +272,7 @@
                             android:background="@drawable/radiobtn_bck"
                             android:button="@null"
                             android:gravity="center"
-                            android:text="@string/sat"
+                            android:text="SAT"
                             android:textAllCaps="true" />
 
                     </LinearLayout>

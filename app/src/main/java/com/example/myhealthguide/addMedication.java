@@ -149,7 +149,7 @@ public class addMedication extends AppCompatActivity {
                     String id = medicationReference.push().getKey();
                     medication = new Medication(id, name, special, selectedImg, numOfMedicatoin, hrMed, minMed, days);
                     medicationReference.child(id).setValue(medication);
-                    Dialog(getString(R.string.Added_Successfully));
+                    DialogS(getString(R.string.Added_Successfully));
 
 
                 } else {
@@ -164,57 +164,57 @@ public class addMedication extends AppCompatActivity {
     }
 
     private void checkDays() {
-        if (sun.isChecked()) {
-            Day day = new Day(getString(R.string.sun), true);
+        if(sun.isChecked())
+        {   Day day = new Day("sun",true);
             days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.sun), false);
-            days.add(day);
-        }
-        if (mon.isChecked()) {
-            Day day = new Day(getString(R.string.mon), true);
-            days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.mon), false);
+        }else{
+            Day day = new Day("sun",false);
             days.add(day);
         }
-        if (tue.isChecked()) {
-            Day day = new Day(getString(R.string.tue), true);
+        if(mon.isChecked())
+        {   Day day = new Day("mon",true);
             days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.tue), false);
-            days.add(day);
-        }
-        if (wed.isChecked()) {
-            Day day = new Day(getString(R.string.wed), true);
-            days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.wed), false);
+        }else{
+            Day day = new Day("mon",false);
             days.add(day);
         }
-        if (thu.isChecked()) {
-            Day day = new Day(getString(R.string.thur), true);
+        if(tue.isChecked())
+        {   Day day = new Day("tue",true);
             days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.thur), false);
-            days.add(day);
-        }
-        if (fri.isChecked()) {
-            Day day = new Day(getString(R.string.fri), true);
-            days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.fri), false);
+        }else{
+            Day day = new Day("tue",false);
             days.add(day);
         }
-        if (sat.isChecked()) {
-            Day day = new Day(getString(R.string.sat), true);
+        if(wed.isChecked())
+        {   Day day = new Day("wed",true);
             days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.sat), false);
+        }else{
+            Day day = new Day("wed",false);
+            days.add(day);
+        }
+        if(thu.isChecked())
+        {   Day day = new Day("thu",true);
+            days.add(day);
+        }else{
+            Day day = new Day("thu",false);
+            days.add(day);
+        }
+        if(fri.isChecked())
+        {   Day day = new Day("fri",true);
+            days.add(day);
+        }else{
+            Day day = new Day("fri",false);
+            days.add(day);
+        }if(sat.isChecked())
+        {   Day day = new Day("sat",true);
+            days.add(day);
+        }else{
+            Day day = new Day("sat",false);
             days.add(day);
         }
 
     }
+
 
 
     public void init() {
@@ -248,7 +248,7 @@ public class addMedication extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Dialog(getString(R.string.leave_page));
             }//End of onClick()
         });//End of OnClickListener()
 
@@ -380,6 +380,38 @@ public class addMedication extends AppCompatActivity {
         // Setting Icon to Dialog
 
         //Setting Negative "ok" Button
+        alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                finish();
+
+
+            }//end onClick
+        });//end setPositiveButton
+        alertDialog.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+              dialog.dismiss();
+
+
+            }//end onClick
+        });//end setPositiveButton
+
+
+        alertDialog.show();
+
+    }//end wrongInfoDialog()
+    private void DialogS(String msg) {
+        androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(this);
+        // Setting Dialog Title
+
+
+        // Setting Dialog Message
+        alertDialog.setMessage(msg);
+
+        // Setting Icon to Dialog
+
+        //Setting Negative "ok" Button
         alertDialog.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
@@ -388,6 +420,8 @@ public class addMedication extends AppCompatActivity {
 
             }//end onClick
         });//end setPositiveButton
+
+
 
         alertDialog.show();
 

@@ -99,4 +99,6 @@
     <string name="passMin">يجب ان تحتوي كلمة المرور على ستة أحرف أو رموز على الأقل ، الرجاء المحاولة مجدداً</string>
     <string name="pass_changed_successfully">تم تغيير كلمة المرور بنجاح</string>
     <string name="passwordNew">كلمة المرور</string>
+    <string name="leave_page">هل انت متأكد من مغادرتك للصفحه ؟</string>
+    <string name="search">ابحث...</string>
 </resources>

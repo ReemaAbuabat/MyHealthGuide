@@ -100,4 +100,5 @@
     <string name="logoutMsg">Are you sure you want to logout?</string>
     <string name="passMin">Password should be more than 6 characters, please try again</string>
     <string name="search">Search...</string>
+    <string name="leave_page">Are you sure you want to leave this page</string>
 </resources>

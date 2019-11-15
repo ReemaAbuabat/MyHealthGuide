@@ -60,7 +60,8 @@ public class InfoActivity extends BaseActivity {
         initCollapsingToolbar();
         getList();
 
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.Please_wait));
         sparkButton = findViewById(R.id.test);
 
         sparkButton.setOnClickListener(new View.OnClickListener() {
@@ -144,14 +145,19 @@ public class InfoActivity extends BaseActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         share.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                progressDialog.show();
+
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
                 String shareBody = "" + getString(R.string.disease) + name + "\n " + getString(R.string.allowed_Food) + "\n" + allowedFood + "\n " + getString(R.string.Not_allowed_food) + "\n" + notAllowedFood;
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, name);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(myIntent, getString(R.string.share_using)));
+                progressDialog.hide();
+
             }
         });
 
