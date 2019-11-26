@@ -233,53 +233,52 @@ public class MedicationInformation extends BaseActivity {
     }
 
     private void checkDays() {
-        if (sun.isChecked()) {
-            Day day = new Day(getString(R.string.sun), true);
+        if(sun.isChecked())
+        {   Day day = new Day("sun",true);
             days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.sun), false);
-            days.add(day);
-        }
-        if (mon.isChecked()) {
-            Day day = new Day(getString(R.string.mon), true);
-            days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.mon), false);
+        }else{
+            Day day = new Day("sun",false);
             days.add(day);
         }
-        if (tue.isChecked()) {
-            Day day = new Day(getString(R.string.tue), true);
+        if(mon.isChecked())
+        {   Day day = new Day("mon",true);
             days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.tue), false);
-            days.add(day);
-        }
-        if (wed.isChecked()) {
-            Day day = new Day(getString(R.string.wed), true);
-            days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.wed), false);
+        }else{
+            Day day = new Day("mon",false);
             days.add(day);
         }
-        if (thu.isChecked()) {
-            Day day = new Day(getString(R.string.thur), true);
+        if(tue.isChecked())
+        {   Day day = new Day("tue",true);
             days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.thur), false);
-            days.add(day);
-        }
-        if (fri.isChecked()) {
-            Day day = new Day(getString(R.string.fri), true);
-            days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.fri), false);
+        }else{
+            Day day = new Day("tue",false);
             days.add(day);
         }
-        if (sat.isChecked()) {
-            Day day = new Day(getString(R.string.sat), true);
+        if(wed.isChecked())
+        {   Day day = new Day("wed",true);
             days.add(day);
-        } else {
-            Day day = new Day(getString(R.string.sat), false);
+        }else{
+            Day day = new Day("wed",false);
+            days.add(day);
+        }
+        if(thu.isChecked())
+        {   Day day = new Day("thu",true);
+            days.add(day);
+        }else{
+            Day day = new Day("thu",false);
+            days.add(day);
+        }
+        if(fri.isChecked())
+        {   Day day = new Day("fri",true);
+            days.add(day);
+        }else{
+            Day day = new Day("fri",false);
+            days.add(day);
+        }if(sat.isChecked())
+        {   Day day = new Day("sat",true);
+            days.add(day);
+        }else{
+            Day day = new Day("sat",false);
             days.add(day);
         }
 
@@ -396,25 +395,25 @@ public class MedicationInformation extends BaseActivity {
         ArrayList<Day> days = medication.getDays();
 
         for (Day d : days) {
-            if (d.getName().equals(getString(R.string.sun)) && d.isCheck()) {
+            if (d.getName().equals("sun") && d.isCheck()) {
                 sun.setChecked(true);
             }
-            if (d.getName().equals(getString(R.string.mon)) && d.isCheck()) {
+            if (d.getName().equals("mon") && d.isCheck()) {
                 mon.setChecked(true);
             }
-            if (d.getName().equals(getString(R.string.tue)) && d.isCheck()) {
+            if (d.getName().equals("tue") && d.isCheck()) {
                 tue.setChecked(true);
             }
-            if (d.getName().equals(getString(R.string.wed)) && d.isCheck()) {
+            if (d.getName().equals("wed") && d.isCheck()) {
                 wed.setChecked(true);
             }
-            if (d.getName().equals(getString(R.string.thur)) && d.isCheck()) {
+            if (d.getName().equals("thu") && d.isCheck()) {
                 thu.setChecked(true);
             }
-            if (d.getName().equals(getString(R.string.fri)) && d.isCheck()) {
+            if (d.getName().equals("fri") && d.isCheck()) {
                 fri.setChecked(true);
             }
-            if (d.getName().equals(getString(R.string.sat)) && d.isCheck()) {
+            if (d.getName().equals("sat") && d.isCheck()) {
                 sat.setChecked(true);
             }
         }

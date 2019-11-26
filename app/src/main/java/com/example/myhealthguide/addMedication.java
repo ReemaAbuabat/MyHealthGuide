@@ -1,8 +1,13 @@
 package com.example.myhealthguide;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,9 +21,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +41,9 @@ import java.io.FileNotFoundException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import static java.lang.Integer.lowestOneBit;
 import static java.lang.Integer.parseInt;
 
 public class addMedication extends AppCompatActivity {
@@ -55,6 +64,9 @@ public class addMedication extends AppCompatActivity {
     private FirebaseUser user;
     Medication medication;
     CheckBox sun, mon, tue, wed, thu, fri, sat;
+    String myhour,mymin;
+    int thirdDose,fourDose, fiveDose;
+
 
 
     @Override
@@ -122,7 +134,7 @@ public class addMedication extends AppCompatActivity {
         timeClock = chooseTime.getText().toString();
 
 
-        if (name.isEmpty() || timeClock.isEmpty()) {
+        if (name.isEmpty() || chooseTime.getText().toString().equals("Select initial time:")) {
             wrongInfoDialog(getString(R.string.Missing));
         } else {
             if (selectedImg == null) {
@@ -214,8 +226,6 @@ public class addMedication extends AppCompatActivity {
         }
 
     }
-
-
 
     public void init() {
         chooseTime = findViewById(R.id.etChooseTime);
@@ -402,9 +412,9 @@ public class addMedication extends AppCompatActivity {
 
     }//end wrongInfoDialog()
     private void DialogS(String msg) {
+        afterAddingMed();
         androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(this);
         // Setting Dialog Title
-
 
         // Setting Dialog Message
         alertDialog.setMessage(msg);
@@ -426,6 +436,401 @@ public class addMedication extends AppCompatActivity {
         alertDialog.show();
 
     }//end wrongInfoDialog()
+
+    public void afterAddingMed(){
+        // Assuming you have a medication object called medication
+        Calendar calendar = Calendar.getInstance();
+        // Get hour of medication
+
+
+        // Get the time between every reminder
+
+
+        // Loop through days of medication
+        for (int i = 0; i < medication.getDays().size(); i++) {
+            Integer hour = medication.getHr().get(0);
+
+            // Get minute of medication
+            Integer min = medication.getMin().get(0);
+            // Get day object, assuming class name is MedicationDay
+            Day medicationDay = medication.getDays().get(i);
+
+
+            // Check if needs reminder
+            if (medicationDay.isCheck()) {
+
+                switch (medicationDay.getName()) {
+                    case "sat":
+                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                        break;
+                    case "sun":
+                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                        break;
+                    case "mon":
+                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                        break;
+                    case "tue":
+                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                        break;
+                    case "wed":
+                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                        break;
+                    case "thu":
+                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                        break;
+                    case "fri":
+                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                        break;
+                }
+                if (medicationDay.getName().equals("mon")) {
+                    // Set interval to be repeat every week same day
+                    long interval = AlarmManager.INTERVAL_DAY * 7;
+
+
+                    // For every dose set a reminder
+//                for (int x = 0; x < medication.getDose() ; x++) {
+//                    calendar.set(Calendar.HOUR_OF_DAY, hour + (x * span));
+//                    calendar.set(Calendar.MINUTE, min);
+//                    calendar.set(Calendar.MONTH, 11);
+//                    Log.d("test", medication.getMedName());
+//
+//                    Log.d("what is today" , calendar.toString());
+//
+//
+//                    // Set reminder
+//                    setReminder(calendar, interval, "Reminder", "It is time " + (x + 1) + " to drink your medication: " + medication.medName );
+//                }
+
+                    myhour = "" + hour;
+
+                    if (min < 10) {
+                        mymin = "0" + min;
+                    } else {
+                        mymin = "" + min;
+                    }
+//
+                    switch (medication.getDose()) {
+                        case 1: {
+                            if (hour < 10) {
+                                myhour = "0" + hour;
+                            } else {
+                                myhour = "" + hour;
+                            }
+                            Log.d("dose", String.valueOf(medication.getDose()));
+                            Log.d("what is today", calendar.toString());
+                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                            Log.d("firsthour", myhour);
+                            calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                            calendar.set(Calendar.SECOND, 00);
+                            setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                            break;
+                        }
+                        case 2: {
+                            Log.d("dose", String.valueOf(medication.getDose()));
+                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                            Log.d("firsthour", myhour);
+                            Log.d("firstMin", mymin);
+                            calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                            calendar.set(Calendar.SECOND, 00);
+                            setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                            if (hour < 12) {
+                                calendar.set(Calendar.HOUR_OF_DAY, (hour + 12));
+                                Log.d("secondhour", "" + (hour + 12));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                            } else {
+
+
+                                myhour = "" + (hour - 12);
+
+                                Log.d("secondhour", myhour);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+                            }
+
+                            break;
+
+                        }
+                        case 3: {
+
+                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                            calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                            calendar.set(Calendar.SECOND, 00);
+                            Log.d("firstHour", myhour);
+                            Log.d("firstMin", mymin);
+
+                            setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                            if (hour < 8) {
+
+                                myhour = "" + (hour + 8);
+                                thirdDose = Integer.parseInt(myhour);
+                                Log.d("secondHour", myhour);
+                                Log.d("firstMin", mymin);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                                int third = thirdDose + 8;
+                                Log.d("thirdHour", String.valueOf(third));
+                                Log.d("firstMin", mymin);
+                                calendar.set(Calendar.HOUR_OF_DAY, third);
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                            } else {
+
+                                myhour = "" + (hour - 8);
+
+                                thirdDose = Integer.parseInt(myhour);
+                                Log.d("secondHour", myhour);
+                                Log.d("firstMin", mymin);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                                myhour = "" + (thirdDose - 8);
+
+                                Log.d("thirdHour", myhour);
+                                Log.d("firstMin", mymin);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                            }
+                            break;
+
+                        }
+                        case 4: {
+                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                            calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                            calendar.set(Calendar.SECOND, 00);
+                            Log.d("firstHour", myhour);
+                            Log.d("firstMin", mymin);
+
+                            setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                            if (hour < 6) {
+
+                                myhour = "" + (hour + 6);
+
+                                fourDose = Integer.parseInt(myhour);
+                                Log.d("secondHour", myhour);
+                                Log.d("secondMin", mymin);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                                fiveDose = fourDose + 6;
+                                calendar.set(Calendar.HOUR_OF_DAY, fiveDose);
+                                Log.d("thirdHour", String.valueOf(fiveDose));
+                                Log.d("thiedMin", mymin);
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                                calendar.set(Calendar.HOUR_OF_DAY, fiveDose + 6);
+                                Log.d("fourthHour", String.valueOf(fiveDose + 6));
+                                Log.d("fourthMin", mymin);
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                            } else {
+
+                                myhour = "" + (hour - 6);
+
+                                fourDose = Integer.parseInt(myhour);
+                                Log.d("secondHour", myhour);
+                                Log.d("secondMin", mymin);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                                myhour = "" + (fourDose - 6);
+
+                                fiveDose = Integer.parseInt(myhour);
+                                Log.d("thirdHour", myhour);
+                                Log.d("thiedMin", mymin);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+
+                                myhour = "" + (fiveDose - 6);
+
+
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                Log.d("fourthHour", myhour);
+                                Log.d("fourthMin", mymin);
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                calendar.set(Calendar.SECOND, 00);
+                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                            }
+
+
+                            break;
+
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    private void setReminder(Calendar calendar, Long interval, String title, String message) {
+
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        intent.putExtra("title", title);
+        intent.putExtra("message", message);
+        intent.putExtra("id", calendar.get(Calendar.MINUTE));
+        Log.d("test reminder", medication.getMedName());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), calendar.get(Calendar.MINUTE), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Log.d("test calendae", ""+calendar.get(Calendar.MINUTE));
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
+
+    }
+    private void setReminder1(Calendar calendar, Long interval, String title, String message) {
+
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        intent.putExtra("title", title);
+        intent.putExtra("message", message);
+        intent.putExtra("id", calendar.get(Calendar.MINUTE));
+        Log.d("test reminder", medication.getMedName());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), calendar.get(Calendar.MINUTE), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Log.d("test calendae", ""+calendar.get(Calendar.MINUTE));
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
+
+    }
+
+
+    //    private void switchMed(String timeClock, int numOfMedicatoin) {
+//
+//        hr = new Integer[numOfMedicatoin];
+//        min = new Integer[numOfMedicatoin];
+//        switch (numOfMedicatoin)
+//        {
+//            case 1:
+//            {
+//                int index = timeClock.indexOf(':');
+//                int hour = parseInt(timeClock.substring(0,index));
+//                hr[0] = hour;
+//                int minutes = parseInt(timeClock.substring(index+1));
+//                min[0] = minutes;
+//                break;
+//
+//            }
+//            case 2:
+//            {
+//                int index = timeClock.indexOf(':');
+//                int hour = parseInt(timeClock.substring(0,index));
+//                hr[0] = hour;
+//                int minutes = parseInt(timeClock.substring(index+1));
+//                min[0] = minutes;
+//
+//                if(hour < 12)
+//                {
+//                    hr[1]= hour+12;
+//                    min[1]=minutes;
+//                }
+//                else{
+//                    hr[1]= hour-12;
+//                    min[1]=minutes;
+//                }
+//                break;
+//
+//            }
+//            case 3:
+//            {
+//                int index = timeClock.indexOf(':');
+//                int hour = parseInt(timeClock.substring(0,index));
+//                hr[0] = hour;
+//                int minutes = parseInt(timeClock.substring(index+1));
+//                min[0] = minutes;
+//
+//                if(hour < 8)
+//                {
+//                    hr[1]= hour+8;
+//                    min[1]=minutes;
+//
+//                    hr[2] = hr[1]+8;
+//                    min[2]=minutes;
+//
+//
+//                }
+//                else{
+//                    hr[1]= hour-8;
+//                    min[1]=minutes;
+//
+//                    hr[2] = hr[1]-8;
+//                    min[2]=minutes;
+//                }
+//                break;
+//
+//            }
+//            case 4:
+//            {
+//                int index = timeClock.indexOf(':');
+//                int hour = parseInt(timeClock.substring(0,index));
+//                hr[0] = hour;
+//                int minutes = parseInt(timeClock.substring(index+1));
+//                min[0] = minutes;
+//
+//                if(hour < 6)
+//                {
+//                    hr[1]= hour+6;
+//                    min[1]=minutes;
+//
+//                    hr[2] = hr[1]+6;
+//                    min[2]=minutes;
+//
+//                    hr[3] = hr[2]+6;
+//                    min[3]=minutes;
+//
+//
+//                }
+//                else{
+//                    hr[1]= hour-6;
+//                    min[1]=minutes;
+//
+//                    hr[2] = hr[1]-6;
+//                    min[2]=minutes;
+//
+//                    hr[3] = hr[2]-6;
+//                    min[3]=minutes;
+//                }
+//                break;
+//
+//            }
+//        }
+//    }
+
 
 
 }

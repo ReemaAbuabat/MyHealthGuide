@@ -112,7 +112,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Dose "
+                        android:text="@string/Dose"
                         android:textSize="15sp" />
 
                     <ImageView
@@ -203,7 +203,7 @@
 
                             android:gravity="center"
                             android:textAllCaps="true"
-                            android:text="@string/sun" />
+                            android:text="SUN" />
 
                         <CheckBox
                             android:id="@+id/monm"
@@ -214,7 +214,7 @@
                             android:button="@null"
                             android:gravity="center"
                             android:textAllCaps="true"
-                            android:text="@string/mon" />
+                            android:text="MON" />
 
                         <CheckBox
                             android:id="@+id/tuem"
@@ -226,7 +226,7 @@
                             android:gravity="center"
                             android:textAllCaps="true"
 
-                            android:text="@string/tue" />
+                            android:text="TUE" />
 
                         <CheckBox
                             android:id="@+id/wedm"
@@ -238,7 +238,7 @@
                             android:gravity="center"
                             android:textAllCaps="true"
 
-                            android:text="@string/wed" />
+                            android:text="WED" />
 
                         <CheckBox
                             android:id="@+id/thum"
@@ -250,7 +250,7 @@
                             android:gravity="center"
                             android:textAllCaps="true"
 
-                            android:text="@string/thur" />
+                            android:text="THU" />
 
                         <CheckBox
                             android:id="@+id/frim"
@@ -261,7 +261,7 @@
                             android:button="@null"
                             android:gravity="center"
                             android:textAllCaps="true"
-                            android:text="@string/fri" />
+                            android:text="FRI" />
 
                         <CheckBox
                             android:id="@+id/satm"
@@ -272,7 +272,7 @@
                             android:button="@null"
                             android:gravity="center"
                             android:textAllCaps="true"
-                            android:text="@string/sat" />
+                            android:text="SAT" />
 
                     </LinearLayout>
 
