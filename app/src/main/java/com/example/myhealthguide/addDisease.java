@@ -30,6 +30,7 @@ public class addDisease extends BaseActivity {
         setSupportActionBar(toolbar);
         //set toolbar back Button
         toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.getNavigationIcon().setAutoMirrored(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

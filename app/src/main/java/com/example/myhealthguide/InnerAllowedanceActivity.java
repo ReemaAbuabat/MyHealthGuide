@@ -41,9 +41,10 @@ public class InnerAllowedanceActivity extends BaseActivity {
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(name);
-        setSupportActionBar(toolbar);
+       // setSupportActionBar(toolbar);
         //set toolbar back Button
         toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.getNavigationIcon().setAutoMirrored(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

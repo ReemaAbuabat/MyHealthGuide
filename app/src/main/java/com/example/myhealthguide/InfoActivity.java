@@ -199,6 +199,7 @@ public class InfoActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         //set toolbar back Button
         toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.getNavigationIcon().setAutoMirrored(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -256,8 +257,8 @@ public class InfoActivity extends BaseActivity {
 
     private void prepareAlbums() {
         int[] covers = new int[]{
-                R.drawable.allowed_food,
-                R.drawable.not_allowed_food,
+                R.drawable.clipboard3,
+                R.drawable.notall,
         };
 
         Row a = new Row(getString(R.string.Allowed_Food), "", covers[0], allowedFood, name);
