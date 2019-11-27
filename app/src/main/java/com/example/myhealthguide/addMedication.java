@@ -448,8 +448,8 @@ public class addMedication extends AppCompatActivity {
 
         // Loop through days of medication
         for (int i = 0; i < medication.getDays().size(); i++) {
-            Integer hour = medication.getHr().get(0);
 
+            Integer hour = medication.getHr().get(0);
             // Get minute of medication
             Integer min = medication.getMin().get(0);
             // Get day object, assuming class name is MedicationDay
@@ -482,7 +482,7 @@ public class addMedication extends AppCompatActivity {
                         calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
                         break;
                 }
-                if (medicationDay.getName().equals("mon")) {
+
                     // Set interval to be repeat every week same day
                     long interval = AlarmManager.INTERVAL_DAY * 7;
 
@@ -502,45 +502,49 @@ public class addMedication extends AppCompatActivity {
 //                }
 
                     myhour = "" + hour;
-
-                    if (min < 10) {
-                        mymin = "0" + min;
-                    } else {
-                        mymin = "" + min;
-                    }
+//
+//                    if (min < 10) {
+//                        mymin = "0" + min;
+//                    } else {
+//                        mymin = "" + min;
+//                    }
 //
                     switch (medication.getDose()) {
                         case 1: {
-                            if (hour < 10) {
-                                myhour = "0" + hour;
-                            } else {
-                                myhour = "" + hour;
-                            }
+//                            if (hour < 10) {
+//                                myhour = "0" + hour;
+//                            } else {
+//                                myhour = "" + hour;
+//                            }
                             Log.d("dose", String.valueOf(medication.getDose()));
                             Log.d("what is today", calendar.toString());
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                            Log.d("firsthour", myhour);
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                            calendar.set(Calendar.SECOND, 00);
+                            calendar.set(Calendar.HOUR_OF_DAY, hour);
+                            Log.d("firsthour", String.valueOf(hour));
+                            calendar.set(Calendar.MINUTE, min);
+                            calendar.set(Calendar.SECOND, 0);
                             setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
                             break;
                         }
                         case 2: {
+
                             Log.d("dose", String.valueOf(medication.getDose()));
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                            Log.d("firsthour", myhour);
-                            Log.d("firstMin", mymin);
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                            calendar.set(Calendar.SECOND, 00);
+
+                            calendar.set(Calendar.HOUR_OF_DAY, hour);
+                            calendar.set(Calendar.MINUTE, min);
+                            calendar.set(Calendar.SECOND, 0);
+
+                            Log.d("firsthour", String.valueOf(hour));
+                            Log.d("firstMin", String.valueOf(min));
                             setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
 
                             if (hour < 12) {
+
                                 calendar.set(Calendar.HOUR_OF_DAY, (hour + 12));
                                 Log.d("secondhour", "" + (hour + 12));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
                             } else {
@@ -548,10 +552,10 @@ public class addMedication extends AppCompatActivity {
 
                                 myhour = "" + (hour - 12);
 
-                                Log.d("secondhour", myhour);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
+                                Log.d("secondhour", String.valueOf((hour - 12)));
+                                calendar.set(Calendar.HOUR_OF_DAY, (hour - 12));
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
                             }
 
@@ -560,11 +564,11 @@ public class addMedication extends AppCompatActivity {
                         }
                         case 3: {
 
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                            calendar.set(Calendar.SECOND, 00);
-                            Log.d("firstHour", myhour);
-                            Log.d("firstMin", mymin);
+                            calendar.set(Calendar.HOUR_OF_DAY, hour);
+                            calendar.set(Calendar.MINUTE, min);
+                            calendar.set(Calendar.SECOND, 0);
+                            Log.d("firstHour", String.valueOf(hour));
+                            Log.d("firstMin", String.valueOf(min));
 
                             setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
@@ -574,18 +578,22 @@ public class addMedication extends AppCompatActivity {
                                 myhour = "" + (hour + 8);
                                 thirdDose = Integer.parseInt(myhour);
                                 Log.d("secondHour", myhour);
-                                Log.d("firstMin", mymin);
+                                Log.d("firstMin", String.valueOf(min));
+
                                 calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
+
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
                                 int third = thirdDose + 8;
                                 Log.d("thirdHour", String.valueOf(third));
-                                Log.d("firstMin", mymin);
+                                Log.d("firstMin", String.valueOf(min));
+
                                 calendar.set(Calendar.HOUR_OF_DAY, third);
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
+
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
                             } else {
@@ -593,33 +601,54 @@ public class addMedication extends AppCompatActivity {
                                 myhour = "" + (hour - 8);
 
                                 thirdDose = Integer.parseInt(myhour);
+
                                 Log.d("secondHour", myhour);
-                                Log.d("firstMin", mymin);
+                                Log.d("firstMin", String.valueOf(min));
                                 calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
+
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
+                                if(thirdDose > 8){
 
-                                myhour = "" + (thirdDose - 8);
+                                    myhour = "" + (thirdDose - 8);
 
-                                Log.d("thirdHour", myhour);
-                                Log.d("firstMin", mymin);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
-                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+                                    Log.d("thirdHour", myhour);
+                                    Log.d("firstMin", String.valueOf(min));
+
+                                    calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                    calendar.set(Calendar.MINUTE, min);
+                                    calendar.set(Calendar.SECOND, 0);
+
+                                    setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                                }else{
+                                    myhour = "" + (thirdDose + 8);
+
+                                    Log.d("thirdHour", myhour);
+                                    Log.d("firstMin", String.valueOf(min));
+
+                                    calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                    calendar.set(Calendar.MINUTE, min);
+                                    calendar.set(Calendar.SECOND, 0);
+
+                                    setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+                                }
+
 
                             }
                             break;
 
                         }
                         case 4: {
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                            calendar.set(Calendar.SECOND, 00);
-                            Log.d("firstHour", myhour);
-                            Log.d("firstMin", mymin);
+
+                            calendar.set(Calendar.HOUR_OF_DAY, hour);
+                            calendar.set(Calendar.MINUTE, min);
+                            calendar.set(Calendar.SECOND, 0);
+
+                            Log.d("firstHour", String.valueOf(hour));
+                            Log.d("firstMin", String.valueOf(min));
 
                             setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
@@ -630,25 +659,35 @@ public class addMedication extends AppCompatActivity {
 
                                 fourDose = Integer.parseInt(myhour);
                                 Log.d("secondHour", myhour);
-                                Log.d("secondMin", mymin);
+                                Log.d("secondMin", String.valueOf(min));
+
                                 calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
+
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
 
                                 fiveDose = fourDose + 6;
-                                calendar.set(Calendar.HOUR_OF_DAY, fiveDose);
+
                                 Log.d("thirdHour", String.valueOf(fiveDose));
-                                Log.d("thiedMin", mymin);
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                Log.d("thiedMin", String.valueOf(min));
+
+                                calendar.set(Calendar.HOUR_OF_DAY, fiveDose);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
+
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
 
                                 calendar.set(Calendar.HOUR_OF_DAY, fiveDose + 6);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
+
                                 Log.d("fourthHour", String.valueOf(fiveDose + 6));
-                                Log.d("fourthMin", mymin);
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
+                                Log.d("fourthMin", String.valueOf(min));
+
+
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
 
@@ -657,34 +696,92 @@ public class addMedication extends AppCompatActivity {
                                 myhour = "" + (hour - 6);
 
                                 fourDose = Integer.parseInt(myhour);
+
                                 Log.d("secondHour", myhour);
-                                Log.d("secondMin", mymin);
+                                Log.d("secondMin", String.valueOf(min));
+
                                 calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
+
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
-
+                                if(fourDose > 6)
+                                {
                                 myhour = "" + (fourDose - 6);
 
                                 fiveDose = Integer.parseInt(myhour);
                                 Log.d("thirdHour", myhour);
-                                Log.d("thiedMin", mymin);
+                                Log.d("thiedMin", String.valueOf(min));
                                 calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
+                                calendar.set(Calendar.MINUTE, min);
+                                calendar.set(Calendar.SECOND, 0);
                                 setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
 
+                                if(fiveDose > 6)
+                                {
+                                    myhour = "" + (fiveDose - 6);
 
-                                myhour = "" + (fiveDose - 6);
+
+                                    calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                    Log.d("fourthHour", myhour);
+                                    Log.d("fourthMin", String.valueOf(min));
+                                    calendar.set(Calendar.MINUTE, min);
+                                    calendar.set(Calendar.SECOND, 0);
+                                    setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                                }else{
+                                    myhour = "" + (fiveDose + 6);
 
 
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
-                                Log.d("fourthHour", myhour);
-                                Log.d("fourthMin", mymin);
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(mymin));
-                                calendar.set(Calendar.SECOND, 00);
-                                setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+                                    calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                    Log.d("fourthHour", myhour);
+                                    Log.d("fourthMin", String.valueOf(min));
+                                    calendar.set(Calendar.MINUTE, min);
+                                    calendar.set(Calendar.SECOND, 0);
+                                    setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+                                }
+
+
+
+                                }
+                                else{
+                                    myhour = "" + (fourDose + 6);
+                                    fiveDose = Integer.parseInt(myhour);
+
+                                    Log.d("thirdHour", myhour);
+                                    Log.d("thiedMin", String.valueOf(min));
+
+                                    calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                    calendar.set(Calendar.MINUTE, min);
+                                    calendar.set(Calendar.SECOND, 0);
+                                    setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                                    if(fiveDose > 6)
+                                    {
+                                        myhour = "" + (fiveDose - 6);
+
+
+                                        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                        Log.d("fourthHour", myhour);
+                                        Log.d("fourthMin", String.valueOf(min));
+                                        calendar.set(Calendar.MINUTE, min);
+                                        calendar.set(Calendar.SECOND, 0);
+                                        setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+
+                                    }else{
+                                        myhour = "" + (fiveDose + 6);
+
+
+                                        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(myhour));
+                                        Log.d("fourthHour", myhour);
+                                        Log.d("fourthMin", String.valueOf(min));
+                                        calendar.set(Calendar.MINUTE, min);
+                                        calendar.set(Calendar.SECOND, 0);
+                                        setReminder(calendar, interval, "Reminder", "It is time to take your medication: " + medication.medName);
+                                    }
+                                }
+
 
                             }
 
@@ -694,7 +791,7 @@ public class addMedication extends AppCompatActivity {
                         }
                     }
 
-                }
+
             }
         }
     }
@@ -714,20 +811,7 @@ public class addMedication extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
 
     }
-    private void setReminder1(Calendar calendar, Long interval, String title, String message) {
 
-        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-        intent.putExtra("title", title);
-        intent.putExtra("message", message);
-        intent.putExtra("id", calendar.get(Calendar.MINUTE));
-        Log.d("test reminder", medication.getMedName());
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), calendar.get(Calendar.MINUTE), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Log.d("test calendae", ""+calendar.get(Calendar.MINUTE));
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
-
-    }
 
 
     //    private void switchMed(String timeClock, int numOfMedicatoin) {

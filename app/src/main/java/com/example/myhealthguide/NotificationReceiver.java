@@ -17,7 +17,7 @@ import java.util.Date;
 public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+        int m = (int )(Math.random() * 1000000 + 1);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Log.d("test noti1", "reemaa");
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "100");
