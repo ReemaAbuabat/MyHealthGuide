@@ -86,7 +86,7 @@ public class SignupActivity extends BaseActivity {
                                         } catch (FirebaseAuthUserCollisionException existEmail) {
 
                                             progressDialog.dismiss();
-                                            wrongInfoDialog("This email is already exist");
+                                            wrongInfoDialog(getString(R.string.email_Exist));
 
                                         } catch (Exception e) {
                                             e.printStackTrace();
@@ -115,24 +115,24 @@ public class SignupActivity extends BaseActivity {
 
         if (name.isEmpty() || pass.isEmpty() || cpass.isEmpty() || mail.isEmpty()) {
 
-            wrongInfoDialog("Missing field ");
+            wrongInfoDialog(getString(R.string.MissingField));
 
         } else {
             if (!mail.matches(regex)) {
 
-                wrongInfoDialog("Invalid email format");
+                wrongInfoDialog(getString(R.string.emailFormat));
 
             } else {
                 if (pass.length() < 6) {
                     //todo: make dialog!
 
-                    wrongInfoDialog("Password should be more than 6 characters, please try again ");
+                    wrongInfoDialog(getString(R.string.password6Char));
 
 //
                 } else {
                     if (!pass.equals(cpass)) {
 
-                        wrongInfoDialog("Passwords do not match,, please check then try again");
+                        wrongInfoDialog(getString(R.string.matchPass));
 
 
                     } else
@@ -157,13 +157,13 @@ public class SignupActivity extends BaseActivity {
                         sendUserData();
                         //todo: make dialog
                         progressDialog.dismiss();
-                        Dialog("Verification email has been sent!");
+                        Dialog(getString(R.string.EmailVer));
 
                         // Toast.makeText(SignupActivity.this, "Verification email has been sent!", Toast.LENGTH_LONG).show();
 
                     } else {
                         progressDialog.dismiss();
-                        wrongInfoDialog("Verification email has'nt been sent!");
+                        wrongInfoDialog(getString(R.string.EmailVerNot));
                     }
                 }
             });

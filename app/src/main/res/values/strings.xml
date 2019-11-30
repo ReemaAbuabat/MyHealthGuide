@@ -101,4 +101,11 @@
     <string name="passMin">Password should be more than 6 characters, please try again</string>
     <string name="search">Search...</string>
     <string name="leave_page">Are you sure you want to leave this page</string>
+    <string name="email_Exist">This email is already exist</string>
+    <string name="MissingField">Missing field</string>
+    <string name="emailFormat">Invalid email format</string>
+    <string name="password6Char">Password should be more than 6 characters, please try again</string>
+    <string name="matchPass">Passwords do not match,, please check then try again</string>
+    <string name="EmailVer">Verification email has been sent!</string>
+    <string name="EmailVerNot">Verification email has\'nt been sent!</string>
 </resources>

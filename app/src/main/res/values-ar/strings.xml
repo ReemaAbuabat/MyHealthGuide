@@ -101,4 +101,9 @@
     <string name="passwordNew">كلمة المرور</string>
     <string name="leave_page">هل انت متأكد من مغادرتك للصفحه ؟</string>
     <string name="search">ابحث...</string>
+    <string name="email_Exist">هذا البريد الالكتروني مستخدم مسبقا</string>
+    <string name="MissingField">يوجد حقول فارغه</string>
+    <string name="emailFormat">الرجاء ادخال البريد الالكتروني بشكل صحيح</string>
+    <string name="password6Char">كلمة المرور يجب ان تكون أعلى من ٦ احرف</string>
+    <string name="matchPass">كلمة المرور غير متطابقة، حاول مره اخرى</string>
 </resources>
